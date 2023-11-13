@@ -11,7 +11,8 @@ export const Layout = (props: ILayout) => {
     <Box>
       <Flex
         position={"relative"}
-        bgColor={"#0D0F1B"}
+        // bgColor={"#0D0F1B"}
+        background={"linear-gradient(180deg, #0D0F1B 100%, #292F89 100%)"}
         w={"full"}
         width={"full"}
         justifyContent={"center"}
@@ -29,7 +30,8 @@ export const Layout = (props: ILayout) => {
         }}
       >
         <Heading
-          bgGradient={"linear(to-l, #9393FF 56.1%, #FFFFFC 95.96%)"}
+          fontWeight={"800"}
+          bgGradient={"linear(to-r, #9393FF 36.1%, #FFFFFC 95.96%)"}
           bgClip={"text"}
         >
           {t("common.navbar.title")}
