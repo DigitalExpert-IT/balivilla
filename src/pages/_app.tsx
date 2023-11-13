@@ -32,9 +32,7 @@ export default function App({ Component, pageProps }: AppProps) {
       activeChain={targetChain}
       clientId={CLIENT_ID}
     >
-      <ChakraProvider
-      // theme={theme}
-      >
+      <ChakraProvider theme={theme}>
         <Component {...pageProps} />
       </ChakraProvider>
     </ThirdwebProvider>
