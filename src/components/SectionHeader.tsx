@@ -24,7 +24,7 @@ const SectionHeader = () => {
         bgPosition={"top"}
         overflowX={"hidden"}
         backgroundPosition={{
-          base: "center 250px",
+          base: "center 200px",
           md: "center 150px",
           lg: "center 0px",
         }}
@@ -36,13 +36,20 @@ const SectionHeader = () => {
               alignItems={{ base: "center", md: "flex-start" }}
               justifyContent={"center"}
               color={"#FFF"}
-              gap={3}
+              gap={{ base: 10, md: 3 }}
               flex={1}
               textAlign={{ base: "center", md: "left" }}
             >
-              <Heading size={"4xl"}>{t("common.header.title")}</Heading>
-              <Heading size={"3xl"}>{t("common.header.subTitle")}</Heading>
-              <Text textAlign={{ base: "center", md: "left" }} fontSize={15}>
+              <Heading size={{ base: "2xl", md: "4xl" }}>
+                {t("common.header.title")}
+              </Heading>
+              <Heading size={{ base: "xl", md: "3xl" }}>
+                {t("common.header.subTitle")}
+              </Heading>
+              <Text
+                textAlign={{ base: "center", md: "left" }}
+                fontSize={{ base: 12, md: 15 }}
+              >
                 {t("common.header.description")}
               </Text>
             </VStack>

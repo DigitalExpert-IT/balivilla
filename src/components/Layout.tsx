@@ -11,7 +11,6 @@ export const Layout = (props: ILayout) => {
     <Box>
       <Flex
         position={"relative"}
-        // bgColor={"#0D0F1B"}
         background={"linear-gradient(180deg, #0D0F1B 100%, #292F89 100%)"}
         w={"full"}
         width={"full"}
