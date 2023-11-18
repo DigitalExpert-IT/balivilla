@@ -1,12 +1,11 @@
 import { Layout } from "@/components/Layout";
+import SectionBestDeal from "@/components/SectionBestDeal";
 import SectionHeader from "@/components/SectionHeader";
-import { Box } from "@chakra-ui/react";
-
 export default function Home() {
   return (
     <Layout>
       <SectionHeader />
-      <Box w={"full"} height={"100vh"}></Box>
+      <SectionBestDeal />
     </Layout>
   );
 }
