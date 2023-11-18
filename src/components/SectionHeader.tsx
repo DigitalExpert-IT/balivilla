@@ -29,7 +29,7 @@ const SectionHeader = () => {
           lg: "center 0px",
         }}
       >
-        <Container maxW={"7xl"}>
+        <Container maxW={"8xl"}>
           <Flex alignItems={"center"} gap={25}>
             <VStack
               h={"90vh"}
