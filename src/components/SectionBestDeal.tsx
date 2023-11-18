@@ -7,7 +7,12 @@ const SectionBestDeal = () => {
     <Container maxW={"8xl"} paddingY={20}>
       <Box>
         <Flex flexDirection={{ base: "column", md: "row" }} gap={10}>
-          <Text fontWeight={"800"} fontSize={25} margin={"auto 0"}>
+          <Text
+            fontWeight={"800"}
+            fontSize={25}
+            margin={"auto 0"}
+            textAlign={{ base: "center", md: "left" }}
+          >
             {t("common.bestDealSection.title")}
           </Text>
           <Flex alignItems={"center"}>
