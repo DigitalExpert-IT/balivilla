@@ -42,7 +42,7 @@ const PropertyCard = (props: IPropertyCard) => {
         border={"2px solid #A4A4BE"}
         marginTop={4}
       >
-        <Flex justifyContent={"space-between"}>
+        <Flex justifyContent={"space-between"} gap={1}>
           <Box>
             <Text mb={1}>{title}</Text>
             <Flex gap={2}>
