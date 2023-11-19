@@ -5,6 +5,7 @@ import SectionHeader from "@/components/SectionHeader";
 import SectionProperty from "@/components/SectionProperty";
 import SectionReferral from "@/components/SectionReferral";
 import { Box } from "@chakra-ui/react";
+import SectionTourist from "@/components/SectionTourist";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
         <SectionReferral />
         <SectionFounder />
       </Box>
+      <SectionTourist />
     </Layout>
   );
 }
