@@ -1,9 +1,36 @@
 {
-    "home": {
-        "banner": {
-            "title": "Decentralizing",
-            "title-2": "Millions of Businesses",
-            "subTitle": "Through Web3 Applications"
-        }
+  "home": {
+    "banner": {
+      "title": "Decentralizing",
+      "title-2": "Millions of Businesses",
+      "subTitle": "Through Web3 Applications"
+    },
+    "header": {
+      "title": "NFT Bali Villa",
+      "subTitle": "Your NFT Investment",
+      "description": "Music NFTs will continue to revolutionize the way that artists and fans create community together as we enter the upcoming year undoubtedly changing the trajectory of countless budding music careers."
+    },
+    "bestDealSection": {
+      "title": "The Best Deal Future Property is Here",
+      "fastTransaction": {
+        "title": "Fast Transaction",
+        "description": "We dont need any administration permision. Go buy NFT and Own your profit just on 1 device"
+      },
+      "growthCommunity": {
+        "title": "Growth Community",
+        "description": "Dont worry for any tech updates. Our Community will help to get you fast understand"
+      }
+    },
+    "touristSection": {
+      "title": "Tourists Visiting Bali Around 2023",
+      "description": "After COVID-19, travel changed a bit. Everything is opening up again, and we're here to help you rediscover the joy of travel. It's not just about going somewhere; it's about creating awesome memories. Come join us in this new way of making a great tourism property.",
+      "button": {
+        "register": "Register Now"
+      }
+    },
+    "propertySection": {
+      "title": "Property Collection",
+      "subTitle": "Check Out Our Property"
     }
+  }
 }
