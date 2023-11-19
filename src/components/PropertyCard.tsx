@@ -45,21 +45,25 @@ const PropertyCard = (props: IPropertyCard) => {
         <Flex justifyContent={"space-between"}>
           <Box>
             <Text mb={1}>{title}</Text>
-            <Flex gap={2} alignItems={"self-end"}>
+            <Flex gap={2}>
               <Image
                 src="icons/pinpoint.png"
                 objectFit={"contain"}
                 alt="pin point"
               />
-              <Text fontSize={12}>{location}</Text>
+              <Text fontSize={12} alignSelf={"flex-end"}>
+                {location}
+              </Text>
             </Flex>
           </Box>
           <Flex
             background={"#57467275"}
             borderRadius={"20px"}
             border={"2px solid #A4A4BE"}
-            px={3}
+            px={2}
             alignItems={"center"}
+            fontSize={13}
+            textAlign={"center"}
           >
             Total {totalInvestor} Investor
           </Flex>

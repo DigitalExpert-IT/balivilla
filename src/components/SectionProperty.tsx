@@ -20,7 +20,10 @@ const SectionProperty = () => {
         <Text fontSize={28} fontWeight={"800"} marginBottom={8}>
           {t("pages.home.propertySection.subTitle")}
         </Text>
-        <Flex gap={5}>
+        <Flex
+          gap={{ base: 10, md: 5 }}
+          flexDirection={{ base: "column", md: "row" }}
+        >
           <PropertyCard
             imgListUrl={property.imgListUrl}
             location={property.location}
