@@ -6,7 +6,6 @@ const SectionTourist = () => {
   const { t } = useTranslation();
   return (
     <Box background={"#161634"} position={"relative"} p={4}>
-      {/* <Image src="maps.png" position={"absolute"} w={"full"} alt={"dsa"} /> */}
       <Container
         maxW={"container.xl"}
         h={"100vh"}
