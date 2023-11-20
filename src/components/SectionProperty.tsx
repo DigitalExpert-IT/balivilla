@@ -3,8 +3,13 @@ import { VStack, Text, Box, Flex, Image, Container } from "@chakra-ui/react";
 import PropertyCard from "./PropertyCard";
 
 const property = {
-  mainImgUrl: "villa.jpg",
-  imgListUrl: ["villa.jpg", "villa2.jpg", "villa3.jpg"],
+  mainImgUrl:
+    "https://ik.imagekit.io/msxxxaegj/Bali_Vila/bali_main.png?updatedAt=1700463296482",
+  imgListUrl: [
+    "https://ik.imagekit.io/msxxxaegj/Bali_Vila/bali_3.png?updatedAt=1700463292170",
+    "https://ik.imagekit.io/msxxxaegj/Bali_Vila/bali_2.png?updatedAt=1700463291642",
+    "https://ik.imagekit.io/msxxxaegj/Bali_Vila/bali_1.png?updatedAt=1700463290368",
+  ],
   title: "Villa Ubud",
   location: "Ubud, Bali, Indonesia",
   totalInvestor: 100,
