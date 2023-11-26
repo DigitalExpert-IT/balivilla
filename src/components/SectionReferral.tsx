@@ -30,7 +30,7 @@ const SectionReferral = () => {
           src="astronaut.jpg"
           borderRadius={20}
           objectFit={"cover"}
-          w={{ base: "100%", md: "50%" }}
+          w={{ base: "100%", md: "35%" }}
           alt="astronaut"
         />
         <VStack
@@ -42,7 +42,7 @@ const SectionReferral = () => {
           <Box>
             <Text
               fontWeight={"800"}
-              fontSize={{ base: "xl", md: "2xl" }}
+              fontSize={{ base: "xl", md: "5xl" }}
               marginBottom={3}
               background={
                 "linear-gradient(90.19deg, #8143FD 2.45%, #FFFFFF 95.58%)"
@@ -61,7 +61,7 @@ const SectionReferral = () => {
             justifyContent={"space-between"}
             alignItems={"center"}
             paddingLeft={5}
-            borderRadius={20}
+            borderRadius={13}
           >
             <Text color={"gray"}>0 BVI</Text>
             <Button
@@ -73,6 +73,7 @@ const SectionReferral = () => {
               _hover={{
                 background: "#6526b5",
               }}
+              borderRadius={13}
             >
               Claim
             </Button>
