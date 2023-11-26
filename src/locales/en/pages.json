@@ -31,6 +31,11 @@
     "propertySection": {
       "title": "Property Collection",
       "subTitle": "Check Out Our Property"
+    },
+    "referralSection": {
+      "title": "Referral Bonus",
+      "subTitle": "More Referral More Goods",
+      "description": "get 5% Bonus Share on each Direct Downline Buy"
     }
   }
 }
