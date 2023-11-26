@@ -5,9 +5,6 @@ import {
   Flex,
   Heading,
   Image,
-  Input,
-  InputGroup,
-  InputRightElement,
   Text,
   VStack,
 } from "@chakra-ui/react";
@@ -27,18 +24,20 @@ const SectionReferral = () => {
         borderRadius={10}
         gap={10}
         boxShadow={"0px 0px 10px 0px #FFFFFF"}
+        flexDirection={{ base: "column", md: "row" }}
       >
         <Image
           src="astronaut.jpg"
           borderRadius={20}
           objectFit={"cover"}
-          w={"50%"}
+          w={{ base: "100%", md: "50%" }}
           alt="astronaut"
         />
         <VStack
           flex={1}
           justifyContent={"space-between"}
           alignItems={"flex-start"}
+          gap={5}
         >
           <Box>
             <Text
@@ -55,38 +54,29 @@ const SectionReferral = () => {
             </Text>
             <Text> {t("pages.home.referralSection.description")}</Text>
           </Box>
-          <InputGroup size="md" borderRadius={20} overflow={"hidden"}>
-            <Input
-              pr="4.5rem"
-              type={"text"}
-              placeholder="0 BVI"
-              bg={"white"}
-              color={"black"}
-              _focus={{
-                bg: "white",
-              }}
+          <Flex
+            w={"100%"}
+            bg={"white"}
+            h={10}
+            justifyContent={"space-between"}
+            alignItems={"center"}
+            paddingLeft={5}
+            borderRadius={20}
+          >
+            <Text color={"gray"}>0 BVI</Text>
+            <Button
+              h="100%"
+              size="sm"
+              bg={"red"}
+              w={"5.5rem"}
+              background={"#A259FF"}
               _hover={{
-                bg: "white",
+                background: "#6526b5",
               }}
-              _placeholder={{
-                color: "gray",
-              }}
-            />
-            <InputRightElement width="5.5rem">
-              <Button
-                h="100%"
-                size="sm"
-                bg={"red"}
-                w={"5.5rem"}
-                background={"#A259FF"}
-                _hover={{
-                  background: "#6526b5",
-                }}
-              >
-                Claim
-              </Button>
-            </InputRightElement>
-          </InputGroup>
+            >
+              Claim
+            </Button>
+          </Flex>
         </VStack>
       </Flex>
     </Container>
