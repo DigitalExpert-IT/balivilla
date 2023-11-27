@@ -52,7 +52,7 @@ const SectionReferral = () => {
             >
               {t("pages.home.referralSection.subTitle")}
             </Text>
-            <Text> {t("pages.home.referralSection.description")}</Text>
+            <Text fontSize={{base: "sm", md: "lg"}}> {t("pages.home.referralSection.description")}</Text>
           </Box>
           <Flex
             w={"100%"}

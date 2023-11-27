@@ -1,5 +1,6 @@
 import { Layout } from "@/components/Layout";
 import SectionBestDeal from "@/components/SectionBestDeal";
+import SectionFounder from "@/components/SectionFounder";
 import SectionHeader from "@/components/SectionHeader";
 import SectionProperty from "@/components/SectionProperty";
 import SectionReferral from "@/components/SectionReferral";
@@ -13,6 +14,7 @@ export default function Home() {
       <SectionProperty />
       <Box bg={"#3B1165"}>
         <SectionReferral />
+        <SectionFounder />
       </Box>
     </Layout>
   );

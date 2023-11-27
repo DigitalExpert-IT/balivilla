@@ -13,7 +13,7 @@ const SectionBestDeal = () => {
             margin={"auto 0"}
             textAlign={{ base: "center", md: "left" }}
           >
-            {t("common.bestDealSection.title")}
+            {t("pages.home.bestDealSection.title")}
           </Text>
           <Flex alignItems={"center"}>
             <Flex gap={2} position={"relative"}>
@@ -41,10 +41,10 @@ const SectionBestDeal = () => {
               </Box>
               <VStack justifyContent={"center"} alignItems={"flex-start"}>
                 <Text fontWeight={"800"} marginBottom={4}>
-                  {t("common.bestDealSection.fastTransaction.title")}
+                  {t("pages.home.bestDealSection.fastTransaction.title")}
                 </Text>
                 <Text fontSize={13}>
-                  {t("common.bestDealSection.fastTransaction.description")}
+                  {t("pages.home.bestDealSection.fastTransaction.description")}
                 </Text>
               </VStack>
             </Flex>
@@ -72,10 +72,10 @@ const SectionBestDeal = () => {
               </Box>
               <VStack justifyContent={"center"} alignItems={"flex-start"}>
                 <Text fontWeight={"800"} marginBottom={4}>
-                  {t("common.bestDealSection.growthCommunity.title")}
+                  {t("pages.home.bestDealSection.growthCommunity.title")}
                 </Text>
                 <Text fontSize={13}>
-                  {t("common.bestDealSection.growthCommunity.description")}
+                  {t("pages.home.bestDealSection.growthCommunity.description")}
                 </Text>
               </VStack>
             </Flex>

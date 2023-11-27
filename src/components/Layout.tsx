@@ -1,4 +1,12 @@
-import { Box, Flex, Heading } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Heading,
+  Text,
+  Container,
+  Image,
+  Link,
+} from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 
 interface ILayout {
@@ -37,6 +45,78 @@ export const Layout = (props: ILayout) => {
         </Heading>
       </Flex>
       {props.children}
+      <Box
+        bg={
+          "linear-gradient(0deg, #1F0D41, #1F0D41),linear-gradient(0deg, #3C2E78, #3C2E78)"
+        }
+        h={"150px"}
+        borderTop={"3px solid #3C2E78"}
+        overflow={"hidden"}
+      >
+        <Container maxW={"container.xl"} h={"100%"} position={"relative"}>
+          <Box
+            position={"absolute"}
+            width={"600px"}
+            height={"500px"}
+            left={"-110px"}
+            top={"-20px"}
+            bgGradient={"radial(#8593e829 20%, #9198e500 70%)"}
+          />
+          <Box
+            position={"absolute"}
+            width={"695px"}
+            height={"400px"}
+            left={"360px"}
+            top={"-20px"}
+            bgGradient={"radial(#5d6ef336 20%, #9198e500 70%)"}
+          />
+          <Box
+            position={"absolute"}
+            width={"537px"}
+            height={"400px"}
+            left={"811px"}
+            top={"-2px"}
+            bgGradient={"radial(#fc4ff621 20%, #9198e500 70%)"}
+          />
+
+          <Flex
+            justifyContent={{ base: "center", md: "space-between" }}
+            alignItems={"center"}
+            h={"100%"}
+            position={"relative"}
+            flexDir={{ base: "column", md: "row" }}
+            zIndex={10}
+            gap={2}
+          >
+            <Text fontWeight={"600"} fontSize={{ base: "lg", md: "2xl" }}>
+              {t("common.footer.title")}
+            </Text>
+            <Flex
+              gap={5}
+              alignItems={"center"}
+              flexDir={{ base: "column", md: "row" }}
+            >
+              <Text
+                fontSize={{ base: "12px", md: "sm" }}
+                textAlign={{ base: "center", md: "left" }}
+              >
+                {t("common.footer.description")}
+              </Text>
+              <Flex gap={3}>
+                <Link href={"#"}>
+                  <Image src="icons/facebook.png" alt="facebook" />
+                </Link>
+                <Link href={"#"}>
+                  <Image src="icons/twitter.png" alt="twitter" />
+                </Link>
+                <Link href={"#"}>
+                  <Image src="icons/linkedin.png" alt="linkedin" />
+                </Link>
+              </Flex>
+            </Flex>
+          </Flex>
+        </Container>
+      </Box>
     </Box>
   );
 };

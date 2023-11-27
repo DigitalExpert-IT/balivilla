@@ -35,7 +35,12 @@
     "referralSection": {
       "title": "Referral Bonus",
       "subTitle": "More Referral More Goods",
-      "description": "get 5% Bonus Share on each Direct Downline Buy"
+      "description": "Receive a 5% bonus for each real estate acquisition by your direct referrals."
+    },
+    "founderSection": {
+      "title": "Snoop D’Dog",
+      "subTitle": "Founders",
+      "description": "“We're here to empower you with confidence, ensuring that your investments meet the highest standards. We're not just redefining property investment; we're doing it with trust at the center of it all.”"
     }
   }
 }
