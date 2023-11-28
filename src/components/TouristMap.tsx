@@ -32,7 +32,7 @@ const MapChart = () => {
           <Geographies geography={geoJson}>
             {({ geographies }) =>
               geographies.map((geo) => {
-                const dCur = data.find((s) => s.ISO3 === geo.id);
+                const dCur: any = data.find((s: any) => s.ISO3 === geo.id);
                 return (
                   <Tooltip
                     key={geo.id}
