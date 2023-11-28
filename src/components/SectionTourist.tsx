@@ -3,27 +3,39 @@ import { Box, Container, VStack, Text, Button } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import { motion, useScroll, useTransform } from "framer-motion";
 import MapChart from "./TouristMap";
+import useScreen from "@/hooks/useScreen";
 
 const SectionTourist = () => {
   const { t } = useTranslation();
   const scrollRef = useRef<HTMLDivElement>(null);
+  const { isMobile } = useScreen();
   const [refHeight, setRefHeight] = useState<number>(0);
   const [refOffsetTop, setRefOffsetTop] = useState<number>(0);
   const { scrollY } = useScroll();
   const textMove = useTransform(
     scrollY,
-    [refOffsetTop - 200, refOffsetTop + 200],
-    [0, refHeight / 6]
+    [refOffsetTop - 600, refOffsetTop + 200],
+    [isMobile ? refHeight / 6 : 0, refHeight / 6]
   );
-  const textOpa = useTransform(
+  const textEvent = useTransform(
     scrollY,
     [
-      refOffsetTop - 200,
+      refOffsetTop - 600,
       refOffsetTop + 200,
       refOffsetTop + 600,
       refOffsetTop + 800,
     ],
-    [0, 1, 1, 0]
+    ["none", "visible", "visible", "none"]
+  );
+  const textOpa = useTransform(
+    scrollY,
+    [
+      refOffsetTop - 600,
+      refOffsetTop + 200,
+      refOffsetTop + 600,
+      refOffsetTop + 800,
+    ],
+    [isMobile ? 1 : 0, 1, 1, isMobile ? 1 : 0]
   );
   const mapOpa = useTransform(
     scrollY,
@@ -61,10 +73,14 @@ const SectionTourist = () => {
 
   return (
     <Box background={"#161634"} position={"relative"} p={4} ref={scrollRef}>
-      <Container maxW={"container.xl"} minH="200vh">
+      <Container
+        maxW={"container.xl"}
+        minH={{ base: "50vh", md: "200vh" }}
+        maxH={{ base: "100vh", md: "200vh" }}
+      >
         {/* ======== TEXT START ======== */}
         <Box
-          position={"sticky"}
+          position={{ base: "relative", md: "sticky" }}
           height={"100%"}
           width={"fit-content"}
           top={0}
@@ -76,6 +92,7 @@ const SectionTourist = () => {
             style={{
               y: textMove,
               opacity: textOpa,
+              pointerEvents: textEvent,
             }}
           >
             <VStack

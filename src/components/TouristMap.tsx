@@ -8,10 +8,11 @@ import {
 } from "react-simple-maps";
 import geoJson from "@/constant/geo.json";
 import { Tooltip } from "@chakra-ui/react";
+import { useTranslation } from "react-i18next";
 
 const MapChart = () => {
+  const { t } = useTranslation();
   const [data, setData] = useState([]);
-  const [tooltipContent, setTooltipContent] = useState("");
 
   useEffect(() => {
     csv(`/vulnerability.csv`).then((dataCSV: any) => {
@@ -33,29 +34,34 @@ const MapChart = () => {
             {({ geographies }) =>
               geographies.map((geo) => {
                 const dCur: any = data.find((s: any) => s.ISO3 === geo.id);
+
                 return (
                   <Tooltip
                     key={geo.id}
-                    label={tooltipContent}
+                    label={`${dCur?.Name} || 
+                    ${t("pages.home.touristSection.totalTourist")}: ${
+                      dCur?.SEPTEMBER
+                    }`}
                     placement="top"
                     background={"global-brand-bg"}
                     border={"1px solid #a667f5"}
                     color={"chakra-body-text"}
                     borderRadius={"xl"}
                     padding={2}
+                    isDisabled={!dCur || dCur?.SEPTEMBER === "-"}
                   >
                     <Geography
                       key={geo.id}
                       geography={geo}
-                      stroke={"#a667f5"}
-                      fill={"#282e86"}
+                      stroke={
+                        dCur && dCur?.SEPTEMBER != "-"
+                          ? "#a667f5"
+                          : "transparent"
+                      }
+                      fill={
+                        dCur && dCur?.SEPTEMBER != "-" ? "#a667f5" : "#282e86"
+                      }
                       fillOpacity={0.5}
-                      onMouseEnter={() => {
-                        setTooltipContent(`${dCur?.Name}`);
-                      }}
-                      onMouseLeave={() => {
-                        setTooltipContent("");
-                      }}
                     />
                   </Tooltip>
                 );

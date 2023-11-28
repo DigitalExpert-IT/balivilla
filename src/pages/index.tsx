@@ -12,12 +12,12 @@ export default function Home() {
     <Layout>
       <SectionHeader />
       <SectionBestDeal />
+      <SectionTourist />
       <SectionProperty />
       <Box bg={"#3B1165"}>
         <SectionReferral />
         <SectionFounder />
       </Box>
-      <SectionTourist />
     </Layout>
   );
 }
