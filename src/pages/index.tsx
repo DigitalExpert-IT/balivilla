@@ -5,12 +5,14 @@ import SectionHeader from "@/components/SectionHeader";
 import SectionProperty from "@/components/SectionProperty";
 import SectionReferral from "@/components/SectionReferral";
 import { Box } from "@chakra-ui/react";
+import SectionTourist from "@/components/SectionTourist";
 
 export default function Home() {
   return (
     <Layout>
       <SectionHeader />
       <SectionBestDeal />
+      <SectionTourist />
       <SectionProperty />
       <Box bg={"#3B1165"}>
         <SectionReferral />

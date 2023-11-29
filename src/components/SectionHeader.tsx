@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next";
 
 const SectionHeader = () => {
   const { t } = useTranslation();
+
   return (
     <Box
       background={
@@ -41,16 +42,16 @@ const SectionHeader = () => {
               textAlign={{ base: "center", md: "left" }}
             >
               <Heading size={{ base: "2xl", md: "4xl" }}>
-                {t("common.header.title")}
+                {t("pages.home.header.title")}
               </Heading>
               <Heading size={{ base: "xl", md: "3xl" }}>
-                {t("common.header.subTitle")}
+                {t("pages.home.header.subTitle")}
               </Heading>
               <Text
                 textAlign={{ base: "center", md: "left" }}
                 fontSize={{ base: 12, md: 15 }}
               >
-                {t("common.header.description")}
+                {t("pages.home.header.description")}
               </Text>
             </VStack>
             {/* CARD SECTION */}

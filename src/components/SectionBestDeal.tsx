@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 
 const SectionBestDeal = () => {
   const { t } = useTranslation();
+
   return (
     <Container maxW={"8xl"} paddingY={20}>
       <Box>

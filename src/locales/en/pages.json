@@ -24,6 +24,7 @@
     "touristSection": {
       "title": "Tourists Visiting Bali Around 2023",
       "description": "After COVID-19, travel changed a bit. Everything is opening up again, and we're here to help you rediscover the joy of travel. It's not just about going somewhere; it's about creating awesome memories. Come join us in this new way of making a great tourism property.",
+      "totalTourist": "Total Tourist",
       "button": {
         "register": "Register Now"
       }
