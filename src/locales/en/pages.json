@@ -43,5 +43,34 @@
       "subTitle": "Founders",
       "description": "“We're here to empower you with confidence, ensuring that your investments meet the highest standards. We're not just redefining property investment; we're doing it with trust at the center of it all.”"
     }
+  },
+  "detailVilla": {
+    "status": {
+      "title": "Status",
+      "fractionSold": "Fraction Sold",
+      "estimateReturn": "Estimate. Return",
+      "price": "Price",
+      "investmentStatus": "Investment has been",
+      "fraction": "fraction",
+      "year": "year"
+    },
+    "investmentScheme": {
+      "title": "Investment Scheme",
+      "totalInvestment": "Total investment amount",
+      "avgReturn": "Avg. Return on the Platform",
+      "exitDate": "Exit Date",
+      "estReturn": "Est. Return",
+      "investingPeriod": "Investing Period",
+      "exitType": "Exit Type"
+    },
+    "description": {
+      "title": "Description"
+    },
+    "details": {
+      "title": "Details",
+      "contractAddress": "Contract Address",
+      "fnftid": "F-NFT ID",
+      "blockchain": "Blockchain"
+    }
   }
 }

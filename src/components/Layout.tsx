@@ -7,6 +7,7 @@ import {
   Image,
   Link,
 } from "@chakra-ui/react";
+import { Ref, forwardRef } from "react";
 import { useTranslation } from "react-i18next";
 
 interface ILayout {
@@ -15,6 +16,7 @@ interface ILayout {
 
 export const Layout = (props: ILayout) => {
   const { t } = useTranslation();
+
   return (
     <Box>
       <Flex
@@ -104,13 +106,13 @@ export const Layout = (props: ILayout) => {
               </Text>
               <Flex gap={3}>
                 <Link href={"#"}>
-                  <Image src="icons/facebook.png" alt="facebook" />
+                  <Image src="/icons/facebook.png" alt="facebook" />
                 </Link>
                 <Link href={"#"}>
-                  <Image src="icons/twitter.png" alt="twitter" />
+                  <Image src="/icons/twitter.png" alt="twitter" />
                 </Link>
                 <Link href={"#"}>
-                  <Image src="icons/linkedin.png" alt="linkedin" />
+                  <Image src="/icons/linkedin.png" alt="linkedin" />
                 </Link>
               </Flex>
             </Flex>
