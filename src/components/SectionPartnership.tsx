@@ -12,7 +12,11 @@ export const SectionPartnership = () => {
         <Text fontSize="xl" textTransform="capitalize">
           {t("pages.home.partnershipSection.title")}
         </Text>
-        <Text fontSize="5xl" fontWeight="bold" textTransform="capitalize">
+        <Text
+          fontSize={{ base: "4xl" }}
+          fontWeight="bold"
+          textTransform="capitalize"
+        >
           {t("pages.home.partnershipSection.subtitle")}
         </Text>
       </Box>
@@ -21,6 +25,7 @@ export const SectionPartnership = () => {
         align="center"
         justify="center"
         mt="2rem"
+        mx="1rem"
         spacing="3rem"
       >
         {PARTNERSHIPDATA.map((item, idx) => (
