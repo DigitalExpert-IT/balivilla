@@ -70,7 +70,7 @@ const Header = () => {
             flexDir={"column"}
             justifyContent={"flex-end"}
           >
-            <Container maxW={"container.xl"}>
+            <Box px={20} pb={10}>
               <Box
                 w={"40%"}
                 pb={10}
@@ -92,7 +92,7 @@ const Header = () => {
                   {detail.header.description}
                 </Text>
               </Box>
-            </Container>
+            </Box>
           </Flex>
         </Box>
       </Box>
