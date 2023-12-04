@@ -56,7 +56,6 @@ const Header = () => {
       <Box>
         <Box
           h={"calc(100vh - 100px)"}
-          bgColor={"blue"}
           backgroundImage={
             "https://ik.imagekit.io/msxxxaegj/Bali_Vila/bali_full_main.jpg?updatedAt=1701536634911"
           }
@@ -152,7 +151,10 @@ const Description = () => {
           real estate investment. A few kilometers distances, there are many
           luxury development projects around.
         </Text>
-        <Text>Exact location: 37° 17' 53.4163" N 27° 35' 39.1067" E</Text>
+        <Text>
+          Exact location: 37° 17&apos; 53.4163&quot; N 27° 35&apos;
+          39.1067&quot; E
+        </Text>
         <Text>
           Just 15 km distance to Milas Airport, this villa is in the Serenity
           Bodream villa project and offers a great stable income in one of the
@@ -228,7 +230,7 @@ const InvestmentScheme = () => {
   const { t } = useTranslation();
   return (
     <>
-      <Text fontWeight={"800"} fontSize={"3xl"} mb={8}>
+      <Text fontWeight={"800"} fontSize={"3xl"}>
         {t("pages.detailVilla.investmentScheme.title")}
       </Text>
       <Flex
@@ -290,7 +292,7 @@ const Status = () => {
 
   return (
     <>
-      <Text fontWeight={"800"} fontSize={"3xl"} mb={8}>
+      <Text fontWeight={"800"} fontSize={"3xl"}>
         {t("pages.detailVilla.status.title")}
       </Text>
       <Flex
