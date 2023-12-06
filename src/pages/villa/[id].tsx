@@ -70,25 +70,28 @@ const Header = () => {
             flexDir={"column"}
             justifyContent={"flex-end"}
           >
-            <Box px={20} pb={10}>
-              <Box
-                w={"40%"}
-                pb={10}
-                visibility={{ base: "hidden", md: "visible" }}
-              >
+            <Box px={{ base: 5, md: 20 }} pb={{ base: 2, md: 10 }}>
+              <Box w={{ base: "100%", md: "40%" }} pb={10}>
                 <Box>
                   <Text
-                    fontSize={"5xl"}
+                    fontSize={{ base: "3xl", md: "5xl" }}
                     fontWeight={"800"}
                     textShadow={"2px 1px 2px #161616"}
                   >
                     {detail.header.name}
                   </Text>
-                  <Text fontSize={"2xl"} textShadow={"2px 1px 2px #161616"}>
+                  <Text
+                    fontSize={{ base: "xl", md: "2xl" }}
+                    textShadow={"2px 1px 2px #161616"}
+                  >
                     {detail.header.location}
                   </Text>
                 </Box>
-                <Text mt={10} textAlign={"justify"}>
+                <Text
+                  mt={10}
+                  textAlign={"justify"}
+                  fontSize={{ base: "sm", md: "md" }}
+                >
                   {detail.header.description}
                 </Text>
               </Box>
@@ -96,14 +99,14 @@ const Header = () => {
           </Flex>
         </Box>
       </Box>
-      <Box h={"20vh"} bgColor={"red"} w={"full"}>
+      <Box h={{ base: "100px", md: "20vh" }} w={"full"}>
         <Grid templateColumns="repeat(4, 1fr)" w={"full"}>
           {villaImages.map((villa, id) => (
             <GridItem key={id}>
               <Box position={"relative"}>
                 <Flex
                   position={"absolute"}
-                  h={"20vh"}
+                  h={"100px"}
                   w={"100%"}
                   bgColor={"#00000091"}
                   opacity={0}
@@ -121,7 +124,7 @@ const Header = () => {
                 <Image
                   src={villa.src}
                   alt=""
-                  h={"20vh"}
+                  h={"100px"}
                   w={"100%"}
                   objectFit={"cover"}
                 />
@@ -140,10 +143,10 @@ const Description = () => {
   return (
     <Flex flexDir={{ base: "column", md: "row" }} gap={10}>
       <Flex flex={1} flexDir={"column"} gap={3}>
-        <Text fontWeight={"800"} fontSize={"3xl"} mb={8}>
+        <Text fontWeight={"800"} fontSize={{ base: "2xl", md: "3xl" }} mb={8}>
           {t("pages.detailVilla.description.title")}
         </Text>
-        <Text>
+        <Text fontSize={{ base: "sm", md: "md" }}>
           An amazing two-story 2+1 with sea view, private garage, and quiet area
           surrounded by nature. Just half a kilometer distance from the ancient
           city of ‘Iasos’. Kiyikislacik has known for its fisherman, olive
@@ -151,18 +154,18 @@ const Description = () => {
           real estate investment. A few kilometers distances, there are many
           luxury development projects around.
         </Text>
-        <Text>
+        <Text fontSize={{ base: "sm", md: "md" }}>
           Exact location: 37° 17&apos; 53.4163&quot; N 27° 35&apos;
           39.1067&quot; E
         </Text>
-        <Text>
+        <Text fontSize={{ base: "sm", md: "md" }}>
           Just 15 km distance to Milas Airport, this villa is in the Serenity
           Bodream villa project and offers a great stable income in one of the
           most sought-after locations on the Aegean coast. 35-minute distance to
           Bodrum and 1.1 km distance to the sea.
         </Text>
-        <Text>Some specs:</Text>
-        <UnorderedList>
+        <Text fontSize={{ base: "sm", md: "md" }}>Some specs:</Text>
+        <UnorderedList fontSize={{ base: "sm", md: "md" }}>
           <ListItem>550 m2 land</ListItem>
           <ListItem>100 m2 villa area</ListItem>
           <ListItem>400 m2 garden</ListItem>
@@ -175,10 +178,12 @@ const Description = () => {
           <ListItem>Private car park</ListItem>
           <ListItem>24/7 security all year</ListItem>
         </UnorderedList>
-        <Text>Need more information? Reach us by our contact form here.</Text>
+        <Text fontSize={{ base: "sm", md: "md" }}>
+          Need more information? Reach us by our contact form here.
+        </Text>
       </Flex>
       <Box flex={1}>
-        <Text fontWeight={"800"} fontSize={"3xl"} mb={8}>
+        <Text fontWeight={"800"} fontSize={{ base: "2xl", md: "3xl" }} mb={8}>
           {t("pages.detailVilla.details.title")}
         </Text>
         <Flex gap={2}>
@@ -214,12 +219,22 @@ const Description = () => {
           </Flex>
         </Flex>
         <Grid templateColumns="repeat(2, 1fr)" mt={5}>
-          <GridItem>{t("pages.detailVilla.details.contractAddress")}</GridItem>
-          <GridItem>0xef0141...136c2aeb8</GridItem>
-          <GridItem>{t("pages.detailVilla.details.fnftid")}</GridItem>
-          <GridItem>1</GridItem>
-          <GridItem>{t("pages.detailVilla.details.blockchain")}</GridItem>
-          <GridItem>Binance Smart Chain </GridItem>
+          <GridItem fontSize={{ base: "sm", md: "md" }}>
+            {t("pages.detailVilla.details.contractAddress")}
+          </GridItem>
+          <GridItem fontSize={{ base: "sm", md: "md" }}>
+            0xef0141...136c2aeb8
+          </GridItem>
+          <GridItem fontSize={{ base: "sm", md: "md" }}>
+            {t("pages.detailVilla.details.fnftid")}
+          </GridItem>
+          <GridItem fontSize={{ base: "sm", md: "md" }}>1</GridItem>
+          <GridItem fontSize={{ base: "sm", md: "md" }}>
+            {t("pages.detailVilla.details.blockchain")}
+          </GridItem>
+          <GridItem fontSize={{ base: "sm", md: "md" }}>
+            Binance Smart Chain{" "}
+          </GridItem>
         </Grid>
       </Box>
     </Flex>
@@ -230,7 +245,7 @@ const InvestmentScheme = () => {
   const { t } = useTranslation();
   return (
     <>
-      <Text fontWeight={"800"} fontSize={"3xl"}>
+      <Text fontWeight={"800"} fontSize={{ base: "2xl", md: "3xl" }}>
         {t("pages.detailVilla.investmentScheme.title")}
       </Text>
       <Flex
@@ -292,7 +307,7 @@ const Status = () => {
 
   return (
     <>
-      <Text fontWeight={"800"} fontSize={"3xl"}>
+      <Text fontWeight={"800"} fontSize={{ base: "2xl", md: "3xl" }}>
         {t("pages.detailVilla.status.title")}
       </Text>
       <Flex
@@ -306,41 +321,71 @@ const Status = () => {
         gap={3}
       >
         <Box>
-          <Text fontWeight={"600"}>
+          <Text fontWeight={"600"} fontSize={{ base: "sm", md: "md" }}>
             {t("pages.detailVilla.status.fractionSold")}
           </Text>
-          <Text fontWeight={"800"} fontSize={"xl"} color={"#D995FF"}>
+          <Text
+            fontWeight={"800"}
+            fontSize={{ base: "lg", md: "xl" }}
+            color={"#D995FF"}
+          >
             5900w
           </Text>
-          <Text color={"#A4A4BE"} fontWeight={"600"}>
+          <Text
+            color={"#A4A4BE"}
+            fontWeight={"600"}
+            fontSize={{ base: "sm", md: "md" }}
+          >
             100% (5900)
           </Text>
         </Box>
         <Box>
-          <Text fontWeight={"600"}>
+          <Text fontWeight={"600"} fontSize={{ base: "sm", md: "md" }}>
             {t("pages.detailVilla.status.estimateReturn")}
           </Text>
-          <Text fontWeight={"800"} fontSize={"xl"} color={"#D995FF"}>
+          <Text
+            fontWeight={"800"}
+            fontSize={{ base: "lg", md: "xl" }}
+            color={"#D995FF"}
+          >
             22%
           </Text>
-          <Text color={"#A4A4BE"} fontWeight={"600"}>
+          <Text
+            color={"#A4A4BE"}
+            fontWeight={"600"}
+            fontSize={{ base: "sm", md: "md" }}
+          >
             / {t("pages.detailVilla.status.year")}
           </Text>
         </Box>
         <Box>
-          <Text fontWeight={"600"}>{t("pages.detailVilla.status.price")}</Text>
-          <Text fontWeight={"800"} fontSize={"xl"} color={"#D995FF"}>
+          <Text fontWeight={"600"} fontSize={{ base: "sm", md: "md" }}>
+            {t("pages.detailVilla.status.price")}
+          </Text>
+          <Text
+            fontWeight={"800"}
+            fontSize={{ base: "lg", md: "xl" }}
+            color={"#D995FF"}
+          >
             $50.00
           </Text>
-          <Text color={"#A4A4BE"} fontWeight={"600"}>
+          <Text
+            color={"#A4A4BE"}
+            fontWeight={"600"}
+            fontSize={{ base: "sm", md: "md" }}
+          >
             / {t("pages.detailVilla.status.fraction")}
           </Text>
         </Box>
         <Box>
-          <Text fontWeight={"600"}>
+          <Text fontWeight={"600"} fontSize={{ base: "sm", md: "md" }}>
             {t("pages.detailVilla.status.investmentStatus")}
           </Text>
-          <Text fontWeight={"800"} fontSize={"xl"} color={"#D995FF"}>
+          <Text
+            fontWeight={"800"}
+            fontSize={{ base: "lg", md: "xl" }}
+            color={"#D995FF"}
+          >
             Completed
           </Text>
         </Box>
@@ -359,7 +404,13 @@ const Status = () => {
             setNFTAmount(val);
           }}
         />
-        <Button bgColor={"#4E64E7"} p={6} borderRadius={12} h={"100%"}>
+        <Button
+          bgColor={"#4E64E7"}
+          p={{ base: 3, md: 6 }}
+          borderRadius={12}
+          h={"100%"}
+          fontSize={{ base: "sm", md: "md" }}
+        >
           Buy 200 USDT
         </Button>
       </Flex>

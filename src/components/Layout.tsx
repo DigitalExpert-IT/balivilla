@@ -25,9 +25,8 @@ export const Layout = (props: ILayout) => {
         w={"full"}
         width={"full"}
         justifyContent={"center"}
-        py={5}
         overflow={"hidden"}
-        h={"100px"}
+        h={{ base: "70px", md: "100px" }}
         _before={{
           content: '""',
           overflow: "hidden",
@@ -42,6 +41,8 @@ export const Layout = (props: ILayout) => {
           fontWeight={"800"}
           bgGradient={"linear(to-r, #9393FF 36.1%, #FFFFFC 95.96%)"}
           bgClip={"text"}
+          fontSize={{ base: "2xl", md: "3xl" }}
+          alignSelf={"center"}
         >
           {t("common.navbar.title")}
         </Heading>

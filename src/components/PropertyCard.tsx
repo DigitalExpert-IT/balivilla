@@ -18,7 +18,7 @@ const PropertyCard = (props: IPropertyCard) => {
       <Box
         transition={"0.2s"}
         _hover={{
-          transform: "scale(1.02)",
+          transform: "scale(1.01)",
           cursor: "pointer",
         }}
         onClick={() => {}}
