@@ -47,5 +47,34 @@
       "title": "partnership",
       "subtitle": "Our Partnership"
     }
+  },
+  "detailVilla": {
+    "status": {
+      "title": "Status",
+      "fractionSold": "Fraction Sold",
+      "estimateReturn": "Estimate. Return",
+      "price": "Price",
+      "investmentStatus": "Investment has been",
+      "fraction": "fraction",
+      "year": "year"
+    },
+    "investmentScheme": {
+      "title": "Investment Scheme",
+      "totalInvestment": "Total investment amount",
+      "avgReturn": "Avg. Return on the Platform",
+      "exitDate": "Exit Date",
+      "estReturn": "Est. Return",
+      "investingPeriod": "Investing Period",
+      "exitType": "Exit Type"
+    },
+    "description": {
+      "title": "Description"
+    },
+    "details": {
+      "title": "Details",
+      "contractAddress": "Contract Address",
+      "fnftid": "F-NFT ID",
+      "blockchain": "Blockchain"
+    }
   }
 }

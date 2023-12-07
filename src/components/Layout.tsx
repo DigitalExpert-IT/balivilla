@@ -7,6 +7,7 @@ import {
   Image,
   Link,
 } from "@chakra-ui/react";
+import { Ref, forwardRef } from "react";
 import { useTranslation } from "react-i18next";
 
 interface ILayout {
@@ -15,6 +16,7 @@ interface ILayout {
 
 export const Layout = (props: ILayout) => {
   const { t } = useTranslation();
+
   return (
     <Box>
       <Flex
@@ -23,9 +25,8 @@ export const Layout = (props: ILayout) => {
         w={"full"}
         width={"full"}
         justifyContent={"center"}
-        py={5}
         overflow={"hidden"}
-        h={"100px"}
+        h={{ base: "70px", md: "100px" }}
         _before={{
           content: '""',
           overflow: "hidden",
@@ -40,6 +41,8 @@ export const Layout = (props: ILayout) => {
           fontWeight={"800"}
           bgGradient={"linear(to-r, #9393FF 36.1%, #FFFFFC 95.96%)"}
           bgClip={"text"}
+          fontSize={{ base: "2xl", md: "3xl" }}
+          alignSelf={"center"}
         >
           {t("common.navbar.title")}
         </Heading>
@@ -104,13 +107,13 @@ export const Layout = (props: ILayout) => {
               </Text>
               <Flex gap={3}>
                 <Link href={"#"}>
-                  <Image src="icons/facebook.png" alt="facebook" />
+                  <Image src="/icons/facebook.png" alt="facebook" />
                 </Link>
                 <Link href={"#"}>
-                  <Image src="icons/twitter.png" alt="twitter" />
+                  <Image src="/icons/twitter.png" alt="twitter" />
                 </Link>
                 <Link href={"#"}>
-                  <Image src="icons/linkedin.png" alt="linkedin" />
+                  <Image src="/icons/linkedin.png" alt="linkedin" />
                 </Link>
               </Flex>
             </Flex>
