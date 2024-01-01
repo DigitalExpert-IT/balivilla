@@ -85,5 +85,6 @@ export const useWallet = () => {
     connect,
     disconnect,
     isLoading,
+    walet,
   };
 };
