@@ -2,17 +2,25 @@ import { ChainInfo } from "@/config/constantine.config";
 import { SigningArchwayClient } from "@archwayhq/arch3.js";
 import {
   AccountData,
+  Coin,
   OfflineAminoSigner,
   OfflineDirectSigner,
 } from "@keplr-wallet/types";
 import { useEffect, useState } from "react";
 
+interface IWalletPerson {
+  walet: AccountData;
+  balance: Coin;
+}
+
 export const useWallet = () => {
   const [isReady, setIsReady] = useState<boolean>(false);
-  const [accounts, setAccounts] = useState<AccountData>();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isConnect, setIsConnect] = useState<boolean>(false);
+  const [accounts, setAccounts] = useState<IWalletPerson>();
 
   const connect = async () => {
-    console.log("connecting...!!");
+    setIsLoading((status) => !status);
     if (!isReady) return;
     try {
       if (window.keplr) {
@@ -22,17 +30,27 @@ export const useWallet = () => {
         const offlineSigner = await window.keplr.getOfflineSignerAuto(
           ChainInfo.chainId
         );
-        await SigningArchwayClient.connectWithSigner(
+        const data = await SigningArchwayClient.connectWithSigner(
           ChainInfo.rpc,
           offlineSigner
         );
 
         const getAccounts = await offlineSigner.getAccounts();
-        setAccounts(getAccounts[0]);
-        console.log("connected");
+
+        const getBalance = await data.getBalance(
+          getAccounts[0].address,
+          "aconst"
+        );
+
+        setAccounts((data) => {
+          return { walet: getAccounts[0], balance: getBalance };
+        });
+        setIsConnect(true);
       }
     } catch {
       alert("Failed to suggest the chain");
+    } finally {
+      setIsLoading((status) => !status);
     }
   };
 
@@ -44,11 +62,13 @@ export const useWallet = () => {
         setIsReady((curr) => (curr = !isReady));
       }
     }
-  }, [accounts]);
+  }, []);
 
   return {
     accounts,
     isReady,
+    isConnect,
     connect,
+    isLoading,
   };
 };
