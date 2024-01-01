@@ -1,9 +1,5 @@
 import { Layout } from "@/components/Layout";
-import { Box, Button, Container, Heading, Stack, Text } from "@chakra-ui/react";
-import { SigningArchwayClient, ArchwayClient } from "@archwayhq/arch3.js";
-import BigNumber from "bignumber.js";
-import { ChainInfo } from "@/config/constantine.config";
-import { useEffect, useState } from "react";
+import { Button, Container, Heading, Stack, Text } from "@chakra-ui/react";
 import { useWallet } from "@/hooks/useWallet";
 
 const formatBigNumb = (value: any) => {
