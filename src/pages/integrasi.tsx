@@ -1,11 +1,7 @@
 import { Layout } from "@/components/Layout";
 import { Button, Container, Heading, Stack, Text } from "@chakra-ui/react";
 import { useWallet } from "@/hooks/useWallet";
-
-const formatBigNumb = (value: any) => {
-  if (isNaN(value)) return;
-  return (Number(value) / 10 ** 18).toFixed(2);
-};
+import { formatBigNumb } from "@/lib";
 
 const Integrasi = () => {
   const { connect, accounts, isLoading, isConnect, disconnect } = useWallet();
