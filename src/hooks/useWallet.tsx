@@ -25,11 +25,11 @@ export const useWallet = () => {
     setIsLoading((status) => !status);
     if (!isReady) return;
     try {
-      if (window.keplr) {
-        await window.keplr.experimentalSuggestChain(ChainInfo);
-        window.keplr.defaultOptions = { sign: { preferNoSetFee: true } };
-        await window.keplr.enable(ChainInfo.chainId);
-        const offlineSigner = await window.keplr.getOfflineSignerAuto(
+      if (walet) {
+        await walet.experimentalSuggestChain(ChainInfo);
+        walet.defaultOptions = { sign: { preferNoSetFee: true } };
+        await walet.enable(ChainInfo.chainId);
+        const offlineSigner = await walet.getOfflineSignerAuto(
           ChainInfo.chainId
         );
         const client = await SigningArchwayClient.connectWithSigner(
