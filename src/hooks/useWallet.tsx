@@ -3,6 +3,7 @@ import { SigningArchwayClient } from "@archwayhq/arch3.js";
 import {
   AccountData,
   Coin,
+  Keplr,
   OfflineAminoSigner,
   OfflineDirectSigner,
 } from "@keplr-wallet/types";
@@ -18,6 +19,7 @@ export const useWallet = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isConnect, setIsConnect] = useState<boolean>(false);
   const [accounts, setAccounts] = useState<IWalletPerson>();
+  const [walet, setWallet] = useState<Keplr>();
 
   const connect = async () => {
     setIsLoading((status) => !status);
@@ -30,14 +32,14 @@ export const useWallet = () => {
         const offlineSigner = await window.keplr.getOfflineSignerAuto(
           ChainInfo.chainId
         );
-        const data = await SigningArchwayClient.connectWithSigner(
+        const client = await SigningArchwayClient.connectWithSigner(
           ChainInfo.rpc,
           offlineSigner
         );
 
         const getAccounts = await offlineSigner.getAccounts();
 
-        const getBalance = await data.getBalance(
+        const getBalance = await client.getBalance(
           getAccounts[0].address,
           "aconst"
         );
@@ -54,12 +56,24 @@ export const useWallet = () => {
     }
   };
 
+  const disconnect = async () => {
+    const offlineSigner = await walet?.getOfflineSignerAuto(ChainInfo.chainId);
+    const client = await SigningArchwayClient.connectWithSigner(
+      ChainInfo.rpc,
+      offlineSigner!
+    );
+    client.disconnect();
+    setAccounts(undefined);
+    setIsConnect(false);
+  };
+
   useEffect(() => {
     if (!window.getOfflineSignerAuto || !window.keplr) {
       alert("Please install keplr extension");
     } else {
       if (window.keplr) {
         setIsReady((curr) => (curr = !isReady));
+        setWallet(window.keplr);
       }
     }
   }, []);
@@ -69,6 +83,7 @@ export const useWallet = () => {
     isReady,
     isConnect,
     connect,
+    disconnect,
     isLoading,
   };
 };

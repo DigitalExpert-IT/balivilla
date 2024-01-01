@@ -12,7 +12,7 @@ const formatBigNumb = (value: any) => {
 };
 
 const Integrasi = () => {
-  const { connect, accounts, isLoading, isConnect } = useWallet();
+  const { connect, accounts, isLoading, isConnect, disconnect } = useWallet();
   return (
     <Layout>
       <Container maxW={"container.xl"}>
@@ -30,6 +30,9 @@ const Integrasi = () => {
               balance : {formatBigNumb(accounts?.balance.amount ?? "0")}
             </Text>
             <Text>Symbol : {accounts?.balance.denom}</Text>
+            <Button onClick={disconnect} my={4} isLoading={isLoading}>
+              Disconnet keplr
+            </Button>
           </Stack>
         ) : (
           <Button onClick={connect} my={4} isLoading={isLoading}>
