@@ -1,15 +1,8 @@
 import { ChainInfo } from "@/config/constantine.config";
 import { emitter } from "@/config/eventEmitter";
 import { SigningArchwayClient } from "@archwayhq/arch3.js";
-import {
-  AccountData,
-  Coin,
-  Keplr,
-  OfflineAminoSigner,
-  OfflineDirectSigner,
-} from "@keplr-wallet/types";
+import { AccountData, Coin, Keplr } from "@keplr-wallet/types";
 import { useEffect, useState } from "react";
-// import {} from ''
 
 interface IWalletPerson {
   walet: AccountData;
