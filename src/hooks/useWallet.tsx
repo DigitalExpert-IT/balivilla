@@ -1,4 +1,5 @@
 import { ChainInfo } from "@/config/constantine.config";
+import { emitter } from "@/config/eventEmitter";
 import { SigningArchwayClient } from "@archwayhq/arch3.js";
 import {
   AccountData,
@@ -8,6 +9,7 @@ import {
   OfflineDirectSigner,
 } from "@keplr-wallet/types";
 import { useEffect, useState } from "react";
+// import {} from ''
 
 interface IWalletPerson {
   walet: AccountData;
@@ -48,6 +50,7 @@ export const useWallet = () => {
           return { walet: getAccounts[0], balance: getBalance };
         });
         setIsConnect(true);
+        emitter.emit("connect-wallet", getAccounts[0]);
       }
     } catch {
       alert("Failed to suggest the chain");
@@ -57,12 +60,6 @@ export const useWallet = () => {
   };
 
   const disconnect = async () => {
-    const offlineSigner = await walet?.getOfflineSignerAuto(ChainInfo.chainId);
-    const client = await SigningArchwayClient.connectWithSigner(
-      ChainInfo.rpc,
-      offlineSigner!
-    );
-    client.disconnect();
     setAccounts(undefined);
     setIsConnect(false);
   };

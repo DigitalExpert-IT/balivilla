@@ -2,9 +2,13 @@ import { Layout } from "@/components/Layout";
 import { Button, Container, Heading, Stack, Text } from "@chakra-ui/react";
 import { useWallet } from "@/hooks/useWallet";
 import { formatBigNumb } from "@/lib";
+import { useCW20 } from "@/hooks/useCW20";
 
 const Integrasi = () => {
   const { connect, accounts, isLoading, isConnect, disconnect } = useWallet();
+  const { balance, tokenInfo } = useCW20();
+  console.log("balance cok", tokenInfo, balance);
+
   return (
     <Layout>
       <Container maxW={"container.xl"}>
