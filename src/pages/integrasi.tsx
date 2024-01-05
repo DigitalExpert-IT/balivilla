@@ -1,16 +1,24 @@
 import { Layout } from "@/components/Layout";
-import { Button, Container, Heading, Stack, Text } from "@chakra-ui/react";
+import {
+  Button,
+  Container,
+  Heading,
+  Image,
+  Stack,
+  Text,
+  Wrap,
+  WrapItem,
+} from "@chakra-ui/react";
 import { useWallet } from "@/hooks/useWallet";
-import { formatBigNumb } from "@/lib";
 import { useCW20 } from "@/hooks/useCW20";
 import { fromBn, toBn } from "evm-bn";
 import { BigNumber } from "ethers";
+import { useNFTMarket } from "@/hooks/useNFTMarket";
 
 const Integrasi = () => {
   const { connect, accounts, isLoading, isConnect, disconnect } = useWallet();
   const { balance, tokenInfo } = useCW20();
-  console.log("balance cok", accounts);
-
+  const { loading, villaList } = useNFTMarket();
   return (
     <Layout>
       <Container maxW={"container.xl"}>
@@ -54,6 +62,45 @@ const Integrasi = () => {
             );
           })}
           <Text>balance : {fromBn(balance?.balance ?? toBn("0"), 6)}</Text>
+        </Stack>
+
+        <Stack
+          py="1rem"
+          border={"1px solid"}
+          borderRadius={"10px"}
+          my={4}
+          px={4}
+        >
+          <Heading>NFT Market</Heading>
+          <Wrap>
+            {villaList?.map((e) => {
+              return (
+                <WrapItem
+                  key={e.id}
+                  w="30%"
+                  border="1px solid white"
+                  rounded={"md"}
+                  flexDir={"column"}
+                  overflow={"hidden"}
+                >
+                  <Image
+                    src="https://ik.imagekit.io/msxxxaegj/Bali_Vila/bali_full_1.jpg?updatedAt=1701536634690"
+                    alt="bathroom"
+                  />
+                  <Stack spacing={1} px={4} py={2}>
+                    {Object.values(e).map((j, i) => (
+                      <Text key={i}>
+                        {Object.keys(e).at(i)} : {j}
+                      </Text>
+                    ))}
+                  </Stack>
+                  <Stack padding={4} w="full">
+                    <Button w="full">Buy</Button>
+                  </Stack>
+                </WrapItem>
+              );
+            })}
+          </Wrap>
         </Stack>
       </Container>
     </Layout>
