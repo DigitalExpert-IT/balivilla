@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useCW20 } from "./useCW20";
 import { useWallet } from "./useWallet";
 import { emitter } from "@/config/eventEmitter";
+import { create } from "zustand";
 
 interface VillaDetail {
   price: BigNumber;
@@ -13,11 +14,30 @@ interface VillaDetail {
   max_lot: number;
   sold: number;
 }
+
+interface Store {
+  isLoading: boolean;
+  villaList: VillaDetail[];
+}
+
+interface Action {
+  setLoading: (data: boolean) => void;
+  setVillaList: (data: VillaDetail[]) => void;
+}
+
+const useStore = create<Store & Action>()((set) => ({
+  isLoading: false,
+  villaList: [],
+  setLoading: (data) =>
+    set((currentState) => ({ ...currentState, isLoading: data })),
+  setVillaList: (data) =>
+    set((currentState) => ({ ...currentState, villaList: data })),
+}));
+
 const CONTRACT_ADDRESS = NFT_MARKET[ChainInfo.chainId as "constantine-3"];
 
 export const useNFTMarket = () => {
-  const [loading, setLoading] = useState(false);
-  const [villaList, setVillaList] = useState<VillaDetail[]>();
+  const { setLoading, setVillaList, ...rest } = useStore();
   const { increaseAllowance, allowance, balance } = useCW20();
   const { account, signWallet } = useWallet();
 
@@ -59,7 +79,7 @@ export const useNFTMarket = () => {
     if (!account?.walet.address) return;
     const approve = await allowance(account?.walet.address, CONTRACT_ADDRESS);
 
-    if (balance.gte(approve.allowance)) {
+    if (balance.gte(BigNumber.from(approve.allowance))) {
       const msg = {
         buy: {
           id: villa.id.toString(),
@@ -90,8 +110,7 @@ export const useNFTMarket = () => {
   }, []);
 
   return {
-    loading,
-    villaList,
+    ...rest,
     buyVilla,
   };
 };

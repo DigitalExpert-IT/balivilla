@@ -19,7 +19,7 @@ import { useCW1155 } from "@/hooks/useCW1155";
 const Integrasi = () => {
   const { connect, account, isLoading, isConnect, disconnect } = useWallet();
   const { balance, tokenInfo } = useCW20();
-  const { loading, villaList, buyVilla } = useNFTMarket();
+  const { isLoading: isLoadingNft, villaList, buyVilla } = useNFTMarket();
   const { getBalance } = useCW1155();
 
   return (
@@ -100,7 +100,7 @@ const Integrasi = () => {
                   <Stack padding={4} w="full">
                     <Button
                       w="full"
-                      isLoading={loading}
+                      isLoading={isLoadingNft}
                       onClick={() => buyVilla(e, 1)}
                     >
                       Buy
