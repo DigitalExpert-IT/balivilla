@@ -18,7 +18,7 @@ import { useNFTMarket } from "@/hooks/useNFTMarket";
 const Integrasi = () => {
   const { connect, accounts, isLoading, isConnect, disconnect } = useWallet();
   const { balance, tokenInfo } = useCW20();
-  const { loading, villaList } = useNFTMarket();
+  const { loading, villaList, buyVilla } = useNFTMarket();
   return (
     <Layout>
       <Container maxW={"container.xl"}>
@@ -95,7 +95,13 @@ const Integrasi = () => {
                     ))}
                   </Stack>
                   <Stack padding={4} w="full">
-                    <Button w="full">Buy</Button>
+                    <Button
+                      w="full"
+                      isLoading={loading}
+                      onClick={() => buyVilla(e, 1)}
+                    >
+                      Buy
+                    </Button>
                   </Stack>
                 </WrapItem>
               );

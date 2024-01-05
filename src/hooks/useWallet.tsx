@@ -15,6 +15,7 @@ export const useWallet = () => {
   const [isConnect, setIsConnect] = useState<boolean>(false);
   const [accounts, setAccounts] = useState<IWalletPerson>();
   const [walet, setWallet] = useState<Keplr>();
+  const [signWallet, setSignWallet] = useState<SigningArchwayClient>();
 
   const connect = async () => {
     setIsLoading((status) => !status);
@@ -39,10 +40,9 @@ export const useWallet = () => {
           "aconst"
         );
 
-        setAccounts((data) => {
-          return { walet: getAccounts[0], balance: getBalance };
-        });
+        setAccounts({ walet: getAccounts[0], balance: getBalance });
         setIsConnect(true);
+        setSignWallet(client);
         emitter.emit("connect-wallet", getAccounts[0]);
       }
     } catch {
@@ -55,6 +55,8 @@ export const useWallet = () => {
   const disconnect = async () => {
     setAccounts(undefined);
     setIsConnect(false);
+    setSignWallet(undefined);
+    emitter.emit("disconnect-wallet", () => {});
   };
 
   useEffect(() => {
@@ -76,5 +78,6 @@ export const useWallet = () => {
     disconnect,
     isLoading,
     walet,
+    signWallet,
   };
 };

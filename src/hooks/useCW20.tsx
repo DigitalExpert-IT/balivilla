@@ -5,6 +5,7 @@ import { USDT } from "@/constant/contractAddress";
 import { emitter } from "@/config/eventEmitter";
 import { AccountData } from "@keplr-wallet/types";
 import { BigNumber } from "ethers";
+import { useWallet } from "./useWallet";
 
 interface ITokenInfo {
   decimals: 6;
@@ -28,6 +29,7 @@ export const useCW20 = () => {
   const [loading, setLoading] = useState(false);
   const [tokenInfo, setTokenInfo] = useState<ITokenInfo>();
   const [balance, setBalance] = useState<IBalance>();
+  const { signWallet, accounts } = useWallet();
 
   const getTokenInfo = async () => {
     setLoading(true);
@@ -74,13 +76,17 @@ export const useCW20 = () => {
         expires: "",
       },
     };
-    const arcwayClient = await ArchwayClient.connect(ChainInfo.rpc);
-    const allowance = await arcwayClient.queryContractSmart(
-      CONTRACT_ADDRESS,
-      msg
-    );
 
-    emitter.emit("increase-allowance", allowance);
+    const tx = await signWallet?.execute(
+      spender,
+      CONTRACT_ADDRESS,
+      msg,
+      "auto"
+    );
+    if (tx?.transactionHash) {
+      emitter.emit("increase-allowance", tx);
+      return tx;
+    }
   };
 
   const allowance = async (owner: string, spender: string) => {
