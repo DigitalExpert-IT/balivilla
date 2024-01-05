@@ -7,6 +7,7 @@ import { useCW20 } from "./useCW20";
 import { useWallet } from "./useWallet";
 import { emitter } from "@/config/eventEmitter";
 import { create } from "zustand";
+import { fromBn } from "evm-bn";
 
 interface VillaDetail {
   price: BigNumber;
@@ -77,34 +78,37 @@ export const useNFTMarket = () => {
 
   const buyVilla = async (villa: VillaDetail, amount: number) => {
     if (!account?.walet.address) return;
-    const approve = await allowance(account?.walet.address, CONTRACT_ADDRESS);
+    const get_approve = await allowance(
+      account?.walet.address,
+      CONTRACT_ADDRESS
+    );
 
-    if (balance.gte(BigNumber.from(approve.allowance))) {
+    const total_allowance = BigNumber.from(get_approve.allowance);
+    const total_price = BigNumber.from(villa.price).mul(amount);
+
+    console.log(fromBn(total_allowance, 6));
+
+    if (total_allowance.gte(total_price)) {
       const msg = {
         buy: {
           id: villa.id.toString(),
           amount: amount.toString(),
         },
       };
-      try {
-        const tx = await signWallet?.execute(
-          account.walet.address,
-          CONTRACT_ADDRESS,
-          msg,
-          "auto"
-        );
 
-        if (tx?.transactionHash) {
-          emitter.emit("buy-villa", tx);
-        }
-      } catch (e) {
-        console.log("buy villa err", e);
-      }
-    } else {
-      await increaseAllowance(
+      const tx = await signWallet?.execute(
+        account.walet.address,
         CONTRACT_ADDRESS,
-        Number(villa.price.mul(amount))
+        msg,
+        "auto"
       );
+
+      if (tx?.transactionHash) {
+        emitter.emit("buy-villa", tx);
+      }
+      return;
+    } else {
+      await increaseAllowance(CONTRACT_ADDRESS, Number(total_price));
       buyVilla(villa, amount);
     }
   };
