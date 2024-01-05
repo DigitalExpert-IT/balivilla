@@ -103,22 +103,20 @@ export const useCW20 = () => {
     let msg = {
       increase_allowance: {
         spender: spender,
-        amount: amount,
+        amount: amount.toString(),
         expires: "",
       },
     };
-
-    const tx = await signWallet?.execute(
-      account?.walet.address,
-      CONTRACT_ADDRESS,
-      msg,
-      "auto",
-      undefined,
-      [account.balance]
-    );
-    if (tx?.transactionHash) {
+    try {
+      const tx = await signWallet?.execute(
+        account?.walet.address,
+        CONTRACT_ADDRESS,
+        msg,
+        "auto"
+      );
       emitter.emit("increase-allowance", tx);
-      return tx;
+    } catch (e) {
+      console.log("error increase", e);
     }
   };
 

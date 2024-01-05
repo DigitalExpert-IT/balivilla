@@ -86,15 +86,19 @@ export const useNFTMarket = () => {
           amount: amount.toString(),
         },
       };
-      const tx = await signWallet?.execute(
-        account.walet.address,
-        CONTRACT_ADDRESS,
-        msg,
-        "auto"
-      );
+      try {
+        const tx = await signWallet?.execute(
+          account.walet.address,
+          CONTRACT_ADDRESS,
+          msg,
+          "auto"
+        );
 
-      if (tx?.transactionHash) {
-        emitter.emit("buy-villa", tx);
+        if (tx?.transactionHash) {
+          emitter.emit("buy-villa", tx);
+        }
+      } catch (e) {
+        console.log("buy villa err", e);
       }
     } else {
       await increaseAllowance(
