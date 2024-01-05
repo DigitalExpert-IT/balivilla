@@ -32,9 +32,6 @@ dependencies:
   '@thirdweb-dev/wallets':
     specifier: ^2.1.1
     version: 2.3.2(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/properties@5.7.0)(@types/react@18.2.45)(ethers@5.7.2)(localforage@1.10.0)(react@18.2.0)(typescript@5.3.3)
-  bignumber.js:
-    specifier: ^9.1.2
-    version: 9.1.2
   d3-fetch:
     specifier: ^3.0.1
     version: 3.0.1
@@ -47,6 +44,9 @@ dependencies:
   eventemitter3:
     specifier: ^5.0.1
     version: 5.0.1
+  evm-bn:
+    specifier: ^1.1.2
+    version: 1.1.2(@ethersproject/bignumber@5.7.0)
   framer-motion:
     specifier: ^10.16.5
     version: 10.16.16(react-dom@18.2.0)(react@18.2.0)
@@ -6634,6 +6634,15 @@ packages:
     engines: {node: '>=0.8.x'}
     dev: false
 
+  /evm-bn@1.1.2(@ethersproject/bignumber@5.7.0):
+    resolution: {integrity: sha512-Lq8CT1EAjSeN+Yk0h1hpSwnZyMA4Xir6fQD4vlStljAuW2xr7qLOEGDLGsTa9sU2e40EYIumA4wYhMC/e+lyKw==}
+    peerDependencies:
+      '@ethersproject/bignumber': 5.x
+    dependencies:
+      '@ethersproject/bignumber': 5.7.0
+      from-exponential: 1.1.1
+    dev: false
+
   /evp_bytestokey@1.0.3:
     resolution: {integrity: sha512-/f2Go4TognH/KvCISP7OUsHn85hT9nUkxxA9BEWxFn+Oj9o8ZNLm/40hdlgSLyuOimsrTKLUMEorQexp/aPQeA==}
     dependencies:
@@ -6908,6 +6917,10 @@ packages:
     resolution: {integrity: sha512-jBTqhX6KaQVDyus8muwZbBeGGP0XgujBRbQ7gM7BRdS3CadCZIHiawyzYLnafYcvZIh5j8WE7cxZKFn7dXhu9g==}
     dependencies:
       tslib: 2.4.0
+    dev: false
+
+  /from-exponential@1.1.1:
+    resolution: {integrity: sha512-VBE7f5OVnYwdgB3LHa+Qo29h8qVpxhVO9Trlc+AWm+/XNAgks1tAwMFHb33mjeiof77GglsJzeYF7OqXrROP/A==}
     dev: false
 
   /fs.realpath@1.0.0:
