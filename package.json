@@ -29,7 +29,8 @@
     "react": "^18",
     "react-dom": "^18",
     "react-i18next": "^13.4.0",
-    "react-simple-maps": "^3.0.0"
+    "react-simple-maps": "^3.0.0",
+    "zustand": "^4.4.7"
   },
   "devDependencies": {
     "@keplr-wallet/types": "^0.12.55",

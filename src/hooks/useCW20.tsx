@@ -6,12 +6,13 @@ import { emitter } from "@/config/eventEmitter";
 import { AccountData } from "@keplr-wallet/types";
 import { BigNumber } from "ethers";
 import { useWallet } from "./useWallet";
+import { create } from "zustand";
 
 interface ITokenInfo {
-  decimals: 6;
-  name: "United State Dolar";
-  symbol: "USDT";
-  total_supply: "1000000000000";
+  decimals: number;
+  name: string;
+  symbol: string;
+  total_supply: string;
 }
 
 interface IBalance {
@@ -23,14 +24,35 @@ interface IAllowance {
   expires: string;
 }
 
+interface IStore {
+  isLoading: boolean;
+  tokenInfo: ITokenInfo;
+  balance: BigNumber;
+}
+
+interface Action {
+  setTokenInfo: (data: ITokenInfo) => void;
+  setLoading: (data: boolean) => void;
+  setBalance: (data: BigNumber) => void;
+}
+
 const CONTRACT_ADDRESS = USDT[ChainInfo.chainId as "constantine-3"];
 
-export const useCW20 = () => {
-  const [loading, setLoading] = useState(false);
-  const [tokenInfo, setTokenInfo] = useState<ITokenInfo>();
-  const [balance, setBalance] = useState<IBalance>();
-  const { signWallet, accounts } = useWallet();
+const useStore = create<IStore & Action>()((set) => ({
+  isLoading: false,
+  balance: BigNumber.from(0),
+  tokenInfo: { decimals: 0, name: "", symbol: "", total_supply: "" },
+  setTokenInfo: (data) =>
+    set((currenState) => ({ ...currenState, tokenInfo: data })),
+  setLoading: (data) =>
+    set((currenState) => ({ ...currenState, isLoading: data })),
+  setBalance: (data) =>
+    set((currenState) => ({ ...currenState, balance: data })),
+}));
 
+export const useCW20 = () => {
+  const { setLoading, setTokenInfo, setBalance, ...res } = useStore();
+  const { signWallet } = useWallet();
   const getTokenInfo = async () => {
     setLoading(true);
     const msg = { token_info: {} };
@@ -57,12 +79,12 @@ export const useCW20 = () => {
     };
     try {
       const arcwayClient = await ArchwayClient.connect(ChainInfo.rpc);
-      const balance: IBalance = await arcwayClient?.queryContractSmart(
+      const query: IBalance = await arcwayClient?.queryContractSmart(
         CONTRACT_ADDRESS,
         msg
       );
 
-      setBalance(balance);
+      setBalance(query.balance);
     } catch (e) {
       console.log(e);
     }
@@ -115,10 +137,8 @@ export const useCW20 = () => {
   }, []);
 
   return {
-    tokenInfo,
-    balance,
-    loading,
     increaseAllowance,
     allowance,
+    ...res,
   };
 };

@@ -14,11 +14,14 @@ import { useCW20 } from "@/hooks/useCW20";
 import { fromBn, toBn } from "evm-bn";
 import { BigNumber } from "ethers";
 import { useNFTMarket } from "@/hooks/useNFTMarket";
+import { useCW1155 } from "@/hooks/useCW1155";
 
 const Integrasi = () => {
   const { connect, accounts, isLoading, isConnect, disconnect } = useWallet();
   const { balance, tokenInfo } = useCW20();
   const { loading, villaList, buyVilla } = useNFTMarket();
+  const { getBalance } = useCW1155();
+
   return (
     <Layout>
       <Container maxW={"container.xl"}>
@@ -61,7 +64,7 @@ const Integrasi = () => {
               </Text>
             );
           })}
-          <Text>balance : {fromBn(balance?.balance ?? toBn("0"), 6)}</Text>
+          <Text>balance : {fromBn(balance ?? toBn("0"), 6)}</Text>
         </Stack>
 
         <Stack
@@ -107,6 +110,13 @@ const Integrasi = () => {
               );
             })}
           </Wrap>
+        </Stack>
+        <Stack>
+          <Button
+            onClick={() => getBalance(accounts?.walet.address ?? "", "0")}
+          >
+            Get My NFT
+          </Button>
         </Stack>
       </Container>
     </Layout>
