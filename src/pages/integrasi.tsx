@@ -17,7 +17,7 @@ import { useNFTMarket } from "@/hooks/useNFTMarket";
 import { useCW1155 } from "@/hooks/useCW1155";
 
 const Integrasi = () => {
-  const { connect, accounts, isLoading, isConnect, disconnect } = useWallet();
+  const { connect, account, isLoading, isConnect, disconnect } = useWallet();
   const { balance, tokenInfo } = useCW20();
   const { loading, villaList, buyVilla } = useNFTMarket();
   const { getBalance } = useCW1155();
@@ -34,11 +34,11 @@ const Integrasi = () => {
             px={4}
           >
             <Heading>Wallet</Heading>
-            <Text>address : {accounts?.walet?.address}</Text>
+            <Text>address : {account?.walet?.address}</Text>
             <Text>
-              balance : {fromBn(BigNumber.from(accounts?.balance.amount))}
+              balance : {fromBn(BigNumber.from(account?.balance.amount))}
             </Text>
-            <Text>Symbol : {accounts?.balance.denom}</Text>
+            <Text>Symbol : {account?.balance.denom}</Text>
             <Button onClick={disconnect} my={4} isLoading={isLoading}>
               Disconnet keplr
             </Button>
@@ -112,9 +112,7 @@ const Integrasi = () => {
           </Wrap>
         </Stack>
         <Stack>
-          <Button
-            onClick={() => getBalance(accounts?.walet.address ?? "", "0")}
-          >
+          <Button onClick={() => getBalance(account?.walet.address ?? "", "0")}>
             Get My NFT
           </Button>
         </Stack>

@@ -3,29 +3,80 @@ import { emitter } from "@/config/eventEmitter";
 import { SigningArchwayClient } from "@archwayhq/arch3.js";
 import { AccountData, Coin, Keplr } from "@keplr-wallet/types";
 import { useEffect, useState } from "react";
+import { create } from "zustand";
 
 interface IWalletPerson {
   walet: AccountData;
   balance: Coin;
 }
 
-export const useWallet = () => {
-  const [isReady, setIsReady] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isConnect, setIsConnect] = useState<boolean>(false);
-  const [accounts, setAccounts] = useState<IWalletPerson>();
-  const [walet, setWallet] = useState<Keplr>();
-  const [signWallet, setSignWallet] = useState<SigningArchwayClient>();
+interface IStore {
+  isReady: boolean;
+  isLoading: boolean;
+  isConnect: boolean;
+  account?: IWalletPerson;
+  wallet?: Keplr;
+  signWallet?: SigningArchwayClient;
+}
 
+interface IAction {
+  setIsLoading: (data: boolean) => void;
+  setIsReady: (data: boolean) => void;
+  setIsConnect: (data: boolean) => void;
+  setAccount: (data: IWalletPerson) => void;
+  setWallet: (data: Keplr) => void;
+  setSignWallet: (data: SigningArchwayClient) => void;
+  reset: () => void;
+}
+
+const initialState: IStore = {
+  account: undefined,
+  wallet: undefined,
+  isConnect: false,
+  isLoading: false,
+  isReady: false,
+  signWallet: undefined,
+};
+
+const useStore = create<IStore & IAction>((set) => ({
+  ...initialState,
+  setIsLoading: (data) =>
+    set((currentState) => ({ ...currentState, isLoading: data })),
+  setIsReady: (data) =>
+    set((currentState) => ({ ...currentState, isReady: data })),
+  setIsConnect: (data) =>
+    set((currentState) => ({ ...currentState, isConnect: data })),
+  setAccount: (data) =>
+    set((currentState) => ({ ...currentState, account: data })),
+  setWallet: (data) =>
+    set((currentState) => ({ ...currentState, wallet: data })),
+  setSignWallet: (data) =>
+    set((currentState) => ({ ...currentState, signWallet: data })),
+  reset: () => set(initialState),
+}));
+
+export const useWallet = () => {
+  const {
+    setIsLoading,
+    setAccount,
+    setIsConnect,
+    setSignWallet,
+    setIsReady,
+    setWallet,
+    reset,
+    isReady,
+    wallet,
+    ...rest
+  } = useStore();
   const connect = async () => {
-    setIsLoading((status) => !status);
+    setIsLoading(true);
     if (!isReady) return;
     try {
-      if (walet) {
-        await walet.experimentalSuggestChain(ChainInfo);
-        walet.defaultOptions = { sign: { preferNoSetFee: true } };
-        await walet.enable(ChainInfo.chainId);
-        const offlineSigner = await walet.getOfflineSignerAuto(
+      if (wallet) {
+        await wallet.experimentalSuggestChain(ChainInfo);
+        wallet.defaultOptions = { sign: { preferNoSetFee: true } };
+        await wallet.enable(ChainInfo.chainId);
+        const offlineSigner = await wallet.getOfflineSignerAuto(
           ChainInfo.chainId
         );
         const client = await SigningArchwayClient.connectWithSigner(
@@ -40,7 +91,7 @@ export const useWallet = () => {
           "aconst"
         );
 
-        setAccounts({ walet: getAccounts[0], balance: getBalance });
+        setAccount({ walet: getAccounts[0], balance: getBalance });
         setIsConnect(true);
         setSignWallet(client);
         emitter.emit("connect-wallet", getAccounts[0]);
@@ -48,14 +99,12 @@ export const useWallet = () => {
     } catch {
       alert("Failed to suggest the chain");
     } finally {
-      setIsLoading((status) => !status);
+      setIsLoading(false);
     }
   };
 
   const disconnect = async () => {
-    setAccounts(undefined);
-    setIsConnect(false);
-    setSignWallet(undefined);
+    reset();
     emitter.emit("disconnect-wallet", () => {});
   };
 
@@ -64,20 +113,17 @@ export const useWallet = () => {
       alert("Please install keplr extension");
     } else {
       if (window.keplr) {
-        setIsReady((curr) => (curr = !isReady));
+        setIsReady(true);
         setWallet(window.keplr);
       }
     }
   }, []);
 
   return {
-    accounts,
+    ...rest,
+    wallet,
     isReady,
-    isConnect,
     connect,
     disconnect,
-    isLoading,
-    walet,
-    signWallet,
   };
 };

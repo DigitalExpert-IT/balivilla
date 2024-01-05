@@ -34,24 +34,32 @@ interface Action {
   setTokenInfo: (data: ITokenInfo) => void;
   setLoading: (data: boolean) => void;
   setBalance: (data: BigNumber) => void;
+  reset: () => void;
 }
 
 const CONTRACT_ADDRESS = USDT[ChainInfo.chainId as "constantine-3"];
 
-const useStore = create<IStore & Action>()((set) => ({
+const initialState = {
   isLoading: false,
   balance: BigNumber.from(0),
   tokenInfo: { decimals: 0, name: "", symbol: "", total_supply: "" },
+};
+
+const useStore = create<IStore & Action>()((set) => ({
+  ...initialState,
   setTokenInfo: (data) =>
     set((currenState) => ({ ...currenState, tokenInfo: data })),
   setLoading: (data) =>
     set((currenState) => ({ ...currenState, isLoading: data })),
   setBalance: (data) =>
     set((currenState) => ({ ...currenState, balance: data })),
+  reset: () => {
+    set(initialState);
+  },
 }));
 
 export const useCW20 = () => {
-  const { setLoading, setTokenInfo, setBalance, ...res } = useStore();
+  const { setLoading, setTokenInfo, setBalance, reset, ...res } = useStore();
   const { signWallet } = useWallet();
   const getTokenInfo = async () => {
     setLoading(true);
@@ -130,9 +138,15 @@ export const useCW20 = () => {
     getTokenInfo();
 
     emitter.on("connect-wallet", getBalance);
+    emitter.on("disconnect-wallet", () => {
+      setBalance(BigNumber.from(0));
+    });
 
     return () => {
       emitter.removeListener("connect-wallet", getBalance);
+      emitter.removeListener("disconnect-wallet", () => {
+        setBalance(BigNumber.from(0));
+      });
     };
   }, []);
 

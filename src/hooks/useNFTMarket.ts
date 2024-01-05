@@ -19,7 +19,7 @@ export const useNFTMarket = () => {
   const [loading, setLoading] = useState(false);
   const [villaList, setVillaList] = useState<VillaDetail[]>();
   const { increaseAllowance, allowance, balance } = useCW20();
-  const { accounts, signWallet } = useWallet();
+  const { account, signWallet } = useWallet();
 
   const getTotalList = async () => {
     setLoading(true);
@@ -56,10 +56,10 @@ export const useNFTMarket = () => {
   };
 
   const buyVilla = async (villa: VillaDetail, amount: number) => {
-    if (!accounts?.walet.address) return;
-    const approve = await allowance(accounts?.walet.address, CONTRACT_ADDRESS);
+    if (!account?.walet.address) return;
+    const approve = await allowance(account?.walet.address, CONTRACT_ADDRESS);
 
-    if (balance?.balance.gte(approve.allowance)) {
+    if (balance.gte(approve.allowance)) {
       const msg = {
         buy: {
           id: villa.id.toString(),
@@ -67,7 +67,7 @@ export const useNFTMarket = () => {
         },
       };
       const tx = await signWallet?.execute(
-        accounts.walet.address,
+        account.walet.address,
         CONTRACT_ADDRESS,
         msg,
         "auto"
