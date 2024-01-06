@@ -2,8 +2,11 @@ import { Layout } from "@/components/Layout";
 import {
   Button,
   Container,
+  FormControl,
+  FormLabel,
   Heading,
   Image,
+  Input,
   Stack,
   Text,
   Wrap,
@@ -15,12 +18,16 @@ import { fromBn, toBn } from "evm-bn";
 import { BigNumber } from "ethers";
 import { useNFTMarket } from "@/hooks/useNFTMarket";
 import { useCW1155 } from "@/hooks/useCW1155";
+import { useNetwork } from "@/hooks/useNetwork";
 
 const Integrasi = () => {
   const { connect, account, isLoading, isConnect, disconnect } = useWallet();
   const { balance, tokenInfo } = useCW20();
   const { isLoading: isLoadingNft, villaList, buyVilla } = useNFTMarket();
+  const { profile } = useNetwork();
   const { getBalance } = useCW1155();
+
+  console.log(profile);
 
   return (
     <Layout>
@@ -74,6 +81,30 @@ const Integrasi = () => {
           my={4}
           px={4}
         >
+          <Heading>Network</Heading>
+          <Stack direction={"row"}>
+            <Stack>
+              <FormControl>
+                <FormLabel>Referral</FormLabel>
+                <Input placeholder="Input Referral"></Input>
+              </FormControl>
+              <Button>Register</Button>
+            </Stack>
+            <Stack>
+              <Text>Status</Text>
+              <Text>is Register : </Text>
+              <Text>Referral : </Text>
+            </Stack>
+          </Stack>
+        </Stack>
+
+        <Stack
+          py="1rem"
+          border={"1px solid"}
+          borderRadius={"10px"}
+          my={4}
+          px={4}
+        >
           <Heading>NFT Market</Heading>
           <Wrap>
             {villaList?.map((e) => {
@@ -110,11 +141,6 @@ const Integrasi = () => {
               );
             })}
           </Wrap>
-        </Stack>
-        <Stack>
-          <Button onClick={() => getBalance(account?.walet.address ?? "", "0")}>
-            Get My NFT
-          </Button>
         </Stack>
       </Container>
     </Layout>
