@@ -1,4 +1,4 @@
-import { Layout } from "@/components/Layout";
+import { Layout } from '@/components/Layout';
 import {
   Button,
   Container,
@@ -11,14 +11,14 @@ import {
   Text,
   Wrap,
   WrapItem,
-} from "@chakra-ui/react";
-import { useWallet } from "@/hooks/useWallet";
-import { useCW20 } from "@/hooks/useCW20";
-import { fromBn, toBn } from "evm-bn";
-import { BigNumber } from "ethers";
-import { useNFTMarket } from "@/hooks/useNFTMarket";
-import { useCW1155 } from "@/hooks/useCW1155";
-import { useNetwork } from "@/hooks/useNetwork";
+} from '@chakra-ui/react';
+import { useWallet } from '@/hooks/useWallet';
+import { useCW20 } from '@/hooks/useCW20';
+import { fromBn, toBn } from 'evm-bn';
+import { BigNumber } from 'ethers';
+import { useNFTMarket } from '@/hooks/useNFTMarket';
+import { useCW1155 } from '@/hooks/useCW1155';
+import { useNetwork } from '@/hooks/useNetwork';
 
 const Integrasi = () => {
   const { connect, account, isLoading, isConnect, disconnect } = useWallet();
@@ -31,12 +31,12 @@ const Integrasi = () => {
 
   return (
     <Layout>
-      <Container maxW={"container.xl"}>
+      <Container maxW={'container.xl'}>
         {isConnect ? (
           <Stack
             py="1rem"
-            border={"1px solid"}
-            borderRadius={"10px"}
+            border={'1px solid'}
+            borderRadius={'10px'}
             my={4}
             px={4}
           >
@@ -58,8 +58,8 @@ const Integrasi = () => {
 
         <Stack
           py="1rem"
-          border={"1px solid"}
-          borderRadius={"10px"}
+          border={'1px solid'}
+          borderRadius={'10px'}
           my={4}
           px={4}
         >
@@ -71,18 +71,18 @@ const Integrasi = () => {
               </Text>
             );
           })}
-          <Text>balance : {fromBn(balance ?? toBn("0"), 6)}</Text>
+          <Text>balance : {fromBn(balance ?? toBn('0'), 6)}</Text>
         </Stack>
 
         <Stack
           py="1rem"
-          border={"1px solid"}
-          borderRadius={"10px"}
+          border={'1px solid'}
+          borderRadius={'10px'}
           my={4}
           px={4}
         >
           <Heading>Network</Heading>
-          <Stack direction={"row"}>
+          <Stack direction={'row'}>
             <Stack>
               <FormControl>
                 <FormLabel>Referral</FormLabel>
@@ -100,8 +100,8 @@ const Integrasi = () => {
 
         <Stack
           py="1rem"
-          border={"1px solid"}
-          borderRadius={"10px"}
+          border={'1px solid'}
+          borderRadius={'10px'}
           my={4}
           px={4}
         >
@@ -113,9 +113,9 @@ const Integrasi = () => {
                   key={e.id}
                   w="30%"
                   border="1px solid white"
-                  rounded={"md"}
-                  flexDir={"column"}
-                  overflow={"hidden"}
+                  rounded={'md'}
+                  flexDir={'column'}
+                  overflow={'hidden'}
                 >
                   <Image
                     src="https://ik.imagekit.io/msxxxaegj/Bali_Vila/bali_full_1.jpg?updatedAt=1701536634690"
@@ -141,6 +141,18 @@ const Integrasi = () => {
               );
             })}
           </Wrap>
+        </Stack>
+
+        <Stack
+          py="1rem"
+          border={'1px solid'}
+          borderRadius={'10px'}
+          my={4}
+          px={4}
+        >
+          <Heading>NFT Aset</Heading>
+          <Text>nft1 : 0</Text>
+          <Text>nft2 : 0</Text>
         </Stack>
       </Container>
     </Layout>
