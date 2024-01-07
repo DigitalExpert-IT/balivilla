@@ -19,6 +19,7 @@ interface Store {
 
 interface Action {
   setBalance: (data: number, key: string) => void;
+  setLoading: (data: boolean) => void;
 }
 const useStore = create<Store & Action>()((set) => ({
   isLoading: false,
@@ -27,17 +28,18 @@ const useStore = create<Store & Action>()((set) => ({
     set((currentState) => ({
       balance: { ...currentState.balance, [key]: data },
     })),
+  setLoading: (data) => set(() => ({ isLoading: data })),
 }));
 
 const CONTRACT_ADDRESS = NFT1155_BALI["constantine-3"];
 export const useCW1155 = () => {
-  const { isLoading, balance, setBalance } = useStore();
+  const { isLoading, balance, setBalance, setLoading } = useStore();
 
   const getBalance = async (account: AccountData) => {
     if (!account?.address) return;
+    setLoading(true);
     try {
       const archClient = await ArchwayClient.connect(ChainInfo.rpc);
-
       const getTotalList: { value: string } =
         await archClient.queryContractSmart(NFT_MARKET["constantine-3"], {
           get_total_list: {},
@@ -57,7 +59,10 @@ export const useCW1155 = () => {
 
         setBalance(+data.balance, i.toString());
       }
-    } catch (e) {}
+    } catch (e) {
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
