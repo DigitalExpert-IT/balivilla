@@ -7,7 +7,7 @@ import { useCW20 } from "./useCW20";
 import { useWallet } from "./useWallet";
 import { emitter } from "@/config/eventEmitter";
 import { create } from "zustand";
-import { fromBn } from "evm-bn";
+import { useNetwork } from "./useNetwork";
 
 interface VillaDetail {
   price: BigNumber;
@@ -41,6 +41,7 @@ export const useNFTMarket = () => {
   const { setLoading, setVillaList, ...rest } = useStore();
   const { increaseAllowance, allowance, balance } = useCW20();
   const { account, signWallet } = useWallet();
+  const { profile } = useNetwork();
 
   const getTotalList = async () => {
     setLoading(true);
@@ -86,7 +87,15 @@ export const useNFTMarket = () => {
     const total_allowance = BigNumber.from(get_approve.allowance);
     const total_price = BigNumber.from(villa.price).mul(amount);
 
-    console.log(fromBn(total_allowance, 6));
+    if (!profile?.is_register)
+      throw {
+        code: "should Register first",
+      };
+
+    if (!balance.gte(total_price))
+      throw {
+        code: "not enought balance",
+      };
 
     if (total_allowance.gte(total_price)) {
       const msg = {

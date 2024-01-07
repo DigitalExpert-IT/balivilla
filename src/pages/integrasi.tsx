@@ -1,4 +1,4 @@
-import { Layout } from '@/components/Layout';
+import { Layout } from "@/components/Layout";
 import {
   Button,
   Container,
@@ -11,32 +11,37 @@ import {
   Text,
   Wrap,
   WrapItem,
-} from '@chakra-ui/react';
-import { useWallet } from '@/hooks/useWallet';
-import { useCW20 } from '@/hooks/useCW20';
-import { fromBn, toBn } from 'evm-bn';
-import { BigNumber } from 'ethers';
-import { useNFTMarket } from '@/hooks/useNFTMarket';
-import { useCW1155 } from '@/hooks/useCW1155';
-import { useNetwork } from '@/hooks/useNetwork';
+} from "@chakra-ui/react";
+import { useWallet } from "@/hooks/useWallet";
+import { useCW20 } from "@/hooks/useCW20";
+import { fromBn, toBn } from "evm-bn";
+import { BigNumber } from "ethers";
+import { useNFTMarket } from "@/hooks/useNFTMarket";
+import { useCW1155 } from "@/hooks/useCW1155";
+import { useNetwork } from "@/hooks/useNetwork";
+import { useRef } from "react";
 
 const Integrasi = () => {
   const { connect, account, isLoading, isConnect, disconnect } = useWallet();
   const { balance, tokenInfo } = useCW20();
   const { isLoading: isLoadingNft, villaList, buyVilla } = useNFTMarket();
-  const { profile } = useNetwork();
-  const { getBalance } = useCW1155();
+  const { profile, register } = useNetwork();
+  const inputRef = useRef<HTMLInputElement>(null);
+  const {} = useCW1155();
 
-  console.log(profile);
+  const handleRegister = async () => {
+    if (!inputRef.current?.value) return;
+    await register(inputRef.current?.value);
+  };
 
   return (
     <Layout>
-      <Container maxW={'container.xl'}>
+      <Container maxW={"container.xl"}>
         {isConnect ? (
           <Stack
             py="1rem"
-            border={'1px solid'}
-            borderRadius={'10px'}
+            border={"1px solid"}
+            borderRadius={"10px"}
             my={4}
             px={4}
           >
@@ -58,8 +63,8 @@ const Integrasi = () => {
 
         <Stack
           py="1rem"
-          border={'1px solid'}
-          borderRadius={'10px'}
+          border={"1px solid"}
+          borderRadius={"10px"}
           my={4}
           px={4}
         >
@@ -71,37 +76,45 @@ const Integrasi = () => {
               </Text>
             );
           })}
-          <Text>balance : {fromBn(balance ?? toBn('0'), 6)}</Text>
+          <Text>balance : {fromBn(balance ?? toBn("0"), 6)}</Text>
         </Stack>
 
         <Stack
           py="1rem"
-          border={'1px solid'}
-          borderRadius={'10px'}
+          border={"1px solid"}
+          borderRadius={"10px"}
           my={4}
           px={4}
         >
           <Heading>Network</Heading>
-          <Stack direction={'row'}>
+          <Stack direction={"row"}>
             <Stack>
-              <FormControl>
+              <FormControl mb={2} isRequired>
                 <FormLabel>Referral</FormLabel>
-                <Input placeholder="Input Referral"></Input>
+                <Input
+                  placeholder="Input Referral"
+                  type="text"
+                  ref={inputRef}
+                ></Input>
               </FormControl>
-              <Button>Register</Button>
+              <Button type="submit" onClick={handleRegister}>
+                Register
+              </Button>
             </Stack>
             <Stack>
               <Text>Status</Text>
-              <Text>is Register : </Text>
-              <Text>Referral : </Text>
+              <Text>is Register : {String(profile?.is_register)}</Text>
+              <Text>
+                Referral : {profile?.referral ? profile.referral : "no ref"}
+              </Text>
             </Stack>
           </Stack>
         </Stack>
 
         <Stack
           py="1rem"
-          border={'1px solid'}
-          borderRadius={'10px'}
+          border={"1px solid"}
+          borderRadius={"10px"}
           my={4}
           px={4}
         >
@@ -113,9 +126,9 @@ const Integrasi = () => {
                   key={e.id}
                   w="30%"
                   border="1px solid white"
-                  rounded={'md'}
-                  flexDir={'column'}
-                  overflow={'hidden'}
+                  rounded={"md"}
+                  flexDir={"column"}
+                  overflow={"hidden"}
                 >
                   <Image
                     src="https://ik.imagekit.io/msxxxaegj/Bali_Vila/bali_full_1.jpg?updatedAt=1701536634690"
@@ -145,8 +158,8 @@ const Integrasi = () => {
 
         <Stack
           py="1rem"
-          border={'1px solid'}
-          borderRadius={'10px'}
+          border={"1px solid"}
+          borderRadius={"10px"}
           my={4}
           px={4}
         >

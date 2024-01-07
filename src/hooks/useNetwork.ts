@@ -34,6 +34,7 @@ const CONTRACT_ADDRESS = NETWORK["constantine-3"];
 
 export const useNetwork = () => {
   const { profile, isLoading, setProfile, setLoading } = useStore();
+  const { signWallet, account } = useWallet();
 
   const getProfile = async (account: AccountData) => {
     setLoading(true);
@@ -54,6 +55,21 @@ export const useNetwork = () => {
     }
   };
 
+  const register = async (address: string) => {
+    if (!account?.walet.address) return;
+    const msg = {
+      register: {
+        referral: address,
+      },
+    };
+    await signWallet?.execute(
+      account?.walet.address,
+      CONTRACT_ADDRESS,
+      msg,
+      "auto"
+    );
+  };
+
   useEffect(() => {
     emitter.on("connect-wallet", getProfile);
 
@@ -65,5 +81,6 @@ export const useNetwork = () => {
   return {
     profile,
     isLoading,
+    register,
   };
 };

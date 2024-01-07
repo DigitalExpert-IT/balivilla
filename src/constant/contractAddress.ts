@@ -1,6 +1,6 @@
 export const NFT_MARKET = {
   "constantine-3":
-    "archway16ywls3d8u6n28px76du6nu9es4ra97gnxefujkncfwcsxukkdynsv5azlh",
+    "archway15rmqw8x6rj43l2008rdph4zp44clss60uzls2p5995vrr6et07hsll0gpl",
 };
 
 export const USDT = {
@@ -10,10 +10,10 @@ export const USDT = {
 
 export const NFT1155_BALI = {
   "constantine-3":
-    "archway18caucz75k60c5wm0zruh4kzkjd6hzj27vvmvv679u5w7pwdkz4aqcrvrm4",
+    "archway1qvqsns2h0mlt6843zyttndzsaf478xxd2swdymmfp6hyxk6d392s2qf6jf",
 };
 
 export const NETWORK = {
   "constantine-3":
-    "archway1vqgjdr6uvlv97mh3fxwam3n8caqgtcj5wngqmyt8t83k52cn3nqsw6n5c3",
+    "archway1shqgl8ur8tr8nm9qxx6mlzmzcqs4rdhw5etyf0vvt49rm8x9vt4qrayk9v",
 };
