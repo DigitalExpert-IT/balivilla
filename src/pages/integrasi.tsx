@@ -22,14 +22,21 @@ import { useNetwork } from "@/hooks/useNetwork";
 import { useRef } from "react";
 
 const Integrasi = () => {
+  const inputRef = useRef<HTMLInputElement>(null);
   const { connect, account, isLoading, isConnect, disconnect } = useWallet();
   const { balance, tokenInfo } = useCW20();
-  const { isLoading: isLoadingNft, villaList, buyVilla } = useNFTMarket();
+  const {
+    isLoading: isLoadingNft,
+    villaList,
+    buyVilla,
+    bonus,
+    pool,
+  } = useNFTMarket();
   const { profile, register } = useNetwork();
-  const inputRef = useRef<HTMLInputElement>(null);
   const { balance: balanceCw1155 } = useCW1155();
 
   const handleRegister = async () => {
+    if (profile?.is_register) return alert("Already registered");
     if (!inputRef.current?.value) return;
     await register(inputRef.current?.value);
   };
@@ -94,6 +101,7 @@ const Integrasi = () => {
                 <Input
                   placeholder="Input Referral"
                   type="text"
+                  disabled={profile?.is_register}
                   ref={inputRef}
                 ></Input>
               </FormControl>
@@ -165,7 +173,7 @@ const Integrasi = () => {
         >
           <Heading>NFT Aset</Heading>
 
-          {
+          {isConnect && (
             <Wrap>
               {villaList?.map((e) => {
                 return (
@@ -183,7 +191,8 @@ const Integrasi = () => {
                     />
                     <Stack spacing={1} px={4} py={2}>
                       <Text>Total : {balanceCw1155[e.id]}</Text>
-                      <Text>Bonus : 0</Text>
+                      <Text>last claim : {bonus[e.id].last_claim_at}</Text>
+                      <Text>total claim : {bonus[e.id].total_claim}</Text>
                     </Stack>
                     <Stack padding={4} w="full">
                       <Button w="full" isLoading={isLoadingNft}>
@@ -194,7 +203,7 @@ const Integrasi = () => {
                 );
               })}
             </Wrap>
-          }
+          )}
         </Stack>
       </Container>
     </Layout>

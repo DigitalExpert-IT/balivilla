@@ -9,6 +9,7 @@ import { emitter } from "@/config/eventEmitter";
 import { create } from "zustand";
 import { useNetwork } from "./useNetwork";
 import { useCW1155 } from "./useCW1155";
+import { AccountData } from "@keplr-wallet/types";
 
 export interface VillaDetail {
   price: BigNumber;
@@ -17,9 +18,29 @@ export interface VillaDetail {
   sold: number;
 }
 
+interface Bonus {
+  last_claim_at: string;
+  total_claim: string;
+}
+
+// #[cw_serde]
+// pub struct Pool {
+//     pub total_pool: Uint128,
+//     pub bonus_per_nft: Uint128,
+//     pub start_at: Timestamp,
+// }
+
+interface Pool {
+  total_pool: string;
+  bonus_per_nft: string;
+  start_at: string;
+}
+
 interface Store {
   isLoading: boolean;
   isReady: boolean;
+  bonus: { [keys: string]: Bonus };
+  pool: { [keys: string]: Pool };
   villaList: VillaDetail[];
 }
 
@@ -27,12 +48,16 @@ interface Action {
   setLoading: (data: boolean) => void;
   setVillaList: (data: VillaDetail[]) => void;
   setIsReady: (data: boolean) => void;
+  setBonus: (data: Bonus, keys: string) => void;
+  setPool: (data: Pool, keys: string) => void;
 }
 
 const useStore = create<Store & Action>()((set) => ({
   isLoading: false,
   isReady: false,
   villaList: [],
+  bonus: {},
+  pool: {},
   setLoading: (data) =>
     set((currentState) => ({ ...currentState, isLoading: data })),
   setVillaList: (data) =>
@@ -41,12 +66,17 @@ const useStore = create<Store & Action>()((set) => ({
     set(() => ({
       isReady: data,
     })),
+  setBonus: (data, keys) =>
+    set((currentState) => ({ bonus: { ...currentState.bonus, [keys]: data } })),
+  setPool: (data, keys) =>
+    set((currentState) => ({ pool: { ...currentState.pool, [keys]: data } })),
 }));
 
 const CONTRACT_ADDRESS = NFT_MARKET[ChainInfo.chainId as "constantine-3"];
 
 export const useNFTMarket = () => {
-  const { setLoading, setVillaList, setIsReady, ...rest } = useStore();
+  const { setLoading, setVillaList, setIsReady, setPool, setBonus, ...rest } =
+    useStore();
   const { increaseAllowance, allowance, balance } = useCW20();
   const { account, signWallet } = useWallet();
   const { profile } = useNetwork();
@@ -73,6 +103,18 @@ export const useNFTMarket = () => {
           };
           const villaDetail: VillaDetail =
             await archwayClient.queryContractSmart(CONTRACT_ADDRESS, msg);
+          setBonus({ last_claim_at: "0", total_claim: "0" }, i.toString());
+          const poolMsg = {
+            get_pool: {
+              nft_id: i.toString(),
+            },
+          };
+          const pool: Pool = await archwayClient.queryContractSmart(
+            CONTRACT_ADDRESS,
+            poolMsg
+          );
+          setPool(pool, i.toString());
+
           return villaDetail;
         });
 
@@ -131,12 +173,45 @@ export const useNFTMarket = () => {
     }
   };
 
+  // todo share dividen
+  const shareDividen = () => {};
+
+  // todo claim dividen
+  const claimDividen = () => {};
+
+  const getBonus = async (account: AccountData) => {
+    if (rest.villaList.length > 0) {
+      const archClient = await ArchwayClient.connect(ChainInfo.rpc);
+      rest.villaList.forEach(async (e, i) => {
+        const msg = {
+          get_bonus: {
+            nft_id: e.id.toString(),
+            address: account.address,
+          },
+        };
+        const bonus: Bonus = await archClient.queryContractSmart(
+          CONTRACT_ADDRESS,
+          msg
+        );
+        setBonus(bonus, e.id.toString());
+      });
+    }
+  };
+
   useEffect(() => {
     getTotalList();
-  }, []);
+
+    emitter.on("connect-wallet", getBonus);
+
+    return () => {
+      emitter.removeListener("connect-wallet", getBonus);
+    };
+  }, [rest.villaList.length]);
 
   return {
     ...rest,
     buyVilla,
+    shareDividen,
+    claimDividen,
   };
 };

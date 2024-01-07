@@ -15,25 +15,30 @@ interface Balance {
 interface Store {
   isLoading: boolean;
   balance: { [keys: string]: number };
+  bonus: { [keys: string]: number };
 }
 
 interface Action {
   setBalance: (data: number, key: string) => void;
   setLoading: (data: boolean) => void;
+  setBonus: (data: number, key: string) => void;
 }
 const useStore = create<Store & Action>()((set) => ({
   isLoading: false,
   balance: {},
+  bonus: {},
   setBalance: (data, key) =>
     set((currentState) => ({
       balance: { ...currentState.balance, [key]: data },
     })),
   setLoading: (data) => set(() => ({ isLoading: data })),
+  setBonus: (data, key) =>
+    set((currentState) => ({ ...currentState.bonus, [key]: data })),
 }));
 
 const CONTRACT_ADDRESS = NFT1155_BALI["constantine-3"];
 export const useCW1155 = () => {
-  const { isLoading, balance, setBalance, setLoading } = useStore();
+  const { isLoading, balance, setBalance, setLoading, setBonus } = useStore();
 
   const getBalance = async (account: AccountData) => {
     if (!account?.address) return;
@@ -58,6 +63,7 @@ export const useCW1155 = () => {
         );
 
         setBalance(+data.balance, i.toString());
+        setBonus(0, i.toString());
       }
     } catch (e) {
     } finally {
@@ -76,5 +82,6 @@ export const useCW1155 = () => {
   return {
     getBalance,
     balance,
+    isLoading,
   };
 };
