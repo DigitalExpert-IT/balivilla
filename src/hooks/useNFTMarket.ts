@@ -8,8 +8,9 @@ import { useWallet } from "./useWallet";
 import { emitter } from "@/config/eventEmitter";
 import { create } from "zustand";
 import { useNetwork } from "./useNetwork";
+import { useCW1155 } from "./useCW1155";
 
-interface VillaDetail {
+export interface VillaDetail {
   price: BigNumber;
   id: number;
   max_lot: number;
@@ -18,27 +19,34 @@ interface VillaDetail {
 
 interface Store {
   isLoading: boolean;
+  isReady: boolean;
   villaList: VillaDetail[];
 }
 
 interface Action {
   setLoading: (data: boolean) => void;
   setVillaList: (data: VillaDetail[]) => void;
+  setIsReady: (data: boolean) => void;
 }
 
 const useStore = create<Store & Action>()((set) => ({
   isLoading: false,
+  isReady: false,
   villaList: [],
   setLoading: (data) =>
     set((currentState) => ({ ...currentState, isLoading: data })),
   setVillaList: (data) =>
     set((currentState) => ({ ...currentState, villaList: data })),
+  setIsReady: (data) =>
+    set(() => ({
+      isReady: data,
+    })),
 }));
 
 const CONTRACT_ADDRESS = NFT_MARKET[ChainInfo.chainId as "constantine-3"];
 
 export const useNFTMarket = () => {
-  const { setLoading, setVillaList, ...rest } = useStore();
+  const { setLoading, setVillaList, setIsReady, ...rest } = useStore();
   const { increaseAllowance, allowance, balance } = useCW20();
   const { account, signWallet } = useWallet();
   const { profile } = useNetwork();
@@ -70,6 +78,7 @@ export const useNFTMarket = () => {
 
       const villas = await Promise.all(promises);
       setVillaList(villas);
+      setIsReady(true);
     } catch (e) {
       console.log(e);
     } finally {

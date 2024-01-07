@@ -27,7 +27,7 @@ const Integrasi = () => {
   const { isLoading: isLoadingNft, villaList, buyVilla } = useNFTMarket();
   const { profile, register } = useNetwork();
   const inputRef = useRef<HTMLInputElement>(null);
-  const {} = useCW1155();
+  const { balance: balanceCw1155 } = useCW1155();
 
   const handleRegister = async () => {
     if (!inputRef.current?.value) return;
@@ -164,8 +164,37 @@ const Integrasi = () => {
           px={4}
         >
           <Heading>NFT Aset</Heading>
-          <Text>nft1 : 0</Text>
-          <Text>nft2 : 0</Text>
+
+          {
+            <Wrap>
+              {villaList?.map((e) => {
+                return (
+                  <WrapItem
+                    key={e.id}
+                    w="30%"
+                    border="1px solid white"
+                    rounded={"md"}
+                    flexDir={"column"}
+                    overflow={"hidden"}
+                  >
+                    <Image
+                      src="https://ik.imagekit.io/msxxxaegj/Bali_Vila/bali_full_1.jpg?updatedAt=1701536634690"
+                      alt="bathroom"
+                    />
+                    <Stack spacing={1} px={4} py={2}>
+                      <Text>Total : {balanceCw1155[e.id]}</Text>
+                      <Text>Bonus : 0</Text>
+                    </Stack>
+                    <Stack padding={4} w="full">
+                      <Button w="full" isLoading={isLoadingNft}>
+                        Claim
+                      </Button>
+                    </Stack>
+                  </WrapItem>
+                );
+              })}
+            </Wrap>
+          }
         </Stack>
       </Container>
     </Layout>
